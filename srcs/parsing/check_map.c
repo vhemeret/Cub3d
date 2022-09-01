@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/05 15:38:02 by vahemere          #+#    #+#             */
-/*   Updated: 2022/08/30 22:50:14 by vahemere         ###   ########.fr       */
+/*   Created: 2022/08/25 13:57:09 by vahemere          #+#    #+#             */
+/*   Updated: 2022/08/25 14:00:31 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-int	manage_parsing(char *path, char **map)
+int	check_map(char **map)
 {
-	if (!check_fd(path))
-		return (0);
-	map = get_map(path);
-	if (map)
-	{
-		if (!check_map(map))
-			return (0);
-	}
-	else
-		return (0);
+	(void)map;
 	return (1);
 }
