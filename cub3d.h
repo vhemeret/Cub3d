@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/08/30 22:46:26 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/04 00:45:02 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,19 @@
 
 /*##################### STRUCTURES #####################*/
 
-typedef struct s_mem
+// typedef struct s_mem
+// {
+// 	struct s_mem	*next;
+// 	void			*addr;
+// }				t_mem;
+
+typedef struct s_face
 {
-	struct s_mem	*next;
-	void			*addr;
-}				t_mem;
+	int	NO;
+	int SO;
+	int	WE;
+	int	EA;
+}	t_face;
 
 /*##################### PARSING #####################*/
 

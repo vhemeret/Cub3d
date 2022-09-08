@@ -1,0 +1,25 @@
+parsing etapes : 
+
+	data :
+
+- recupéré 4 premieres lignes
+	- split aux espaces
+
+		- faire strcmp des 4 premieres case entre elles
+			- check premiere si on a bien NO SO WE EA
+		
+		- verifier le path texture deuxieme case
+
+- recupéré ligne 5 et 6
+	- split aux espaces
+
+		- check premiere case lettre 'F' ou 'C'
+
+		- deuxieme case split aux virgule.
+			- verifier que il y ai bien trois cases
+				- atoi des valeur de chaque case
+					- voir si elle sont comprises entre 0 et 255
+
+	Map :
+
+	{COMMING SOON}..

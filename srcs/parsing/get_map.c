@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 21:12:11 by vahemere          #+#    #+#             */
-/*   Updated: 2022/08/30 22:45:53 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/04 00:13:01 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	**get_map(char *path)
 {
 	char	**map;
 	
-	map = ft_malloc(sizeof(char *) * (count_line(path) + 1));
+	map = malloc(sizeof(char *) * (count_line(path) + 1));
 	if (!map)
 		return (NULL);
 	if (!put_map_in_array(path, map, count_line(path)))
