@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+         #
+#    By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 04:35:45 by vahemere          #+#    #+#              #
-#    Updated: 2022/08/26 02:23:59 by vahemere         ###   ########.fr        #
+#    Updated: 2022/09/13 13:55:21 by brhajji-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ vpath %.c $(foreach dir, $(SRCS_DIR), $(dir))
 SRCS = main.c \
 check_fd.c get_map.c parsing.c check_map.c \
 get_next_line_utils.c get_next_line.c \
+init_map.c display.c \
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.c=%.o))
 
