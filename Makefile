@@ -6,7 +6,7 @@
 #    By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 04:35:45 by vahemere          #+#    #+#              #
-#    Updated: 2022/08/26 02:23:59 by vahemere         ###   ########.fr        #
+#    Updated: 2022/09/13 21:17:28 by vahemere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,10 @@ SRCS_DIR = $(shell find srcs -type d)
 
 vpath %.c $(foreach dir, $(SRCS_DIR), $(dir))
 SRCS = main.c \
-check_fd.c get_map.c parsing.c check_map.c \
+check_fd.c get_map.c parsing.c check_map.c check_texture_map.c \
 get_next_line_utils.c get_next_line.c \
+free_double_arr.c \
+ft_split.c remove_wspace.c ft_atoi.c \
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.c=%.o))
 
@@ -29,7 +31,7 @@ LIB_NAME = $(LIB_DIR)/libmlx_Linux.a
 ########################### COMPILATION AND FLAGS ###########################
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra #-g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 LIB_FLAGS = -lXext -lX11 -lm
 
 ##################################### COLOR ##################################

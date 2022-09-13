@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:28:12 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/04 01:09:49 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/13 21:09:36 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		if (!manage_parsing(av[1], map))
-		{
-			// printf("error\n");
 			return (0);
-		}
 		// else
 		// 	manage_process(av,map);
 	}

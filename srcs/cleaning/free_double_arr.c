@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   free_double_arr.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/05 15:38:02 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/13 21:13:59 by vahemere         ###   ########.fr       */
+/*   Created: 2022/09/13 13:37:08 by vahemere          #+#    #+#             */
+/*   Updated: 2022/09/13 21:24:41 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-int	manage_parsing(char *path, char **map)
+void	free_double_arr(char **arr)
 {
-	if (!check_fd(path))
-		return (0);
-	map = get_map(path);
-	if (map)
+	int	i;
+
+	i = -1;
+	while (arr[++i])
 	{
-		if (!check_map(map))
-			return (0);
+		free(arr[i]);
+		arr[i] = NULL;
 	}
-	else
-		return (0);
-	return (1);
+	free(arr);
+	arr = NULL;
 }
