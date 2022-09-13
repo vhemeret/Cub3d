@@ -6,99 +6,80 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 17:07:53 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/18 23:46:44 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/27 21:32:54 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-static int	width_map(t_all *all)
+static int	check_player_map(t_all *all)
 {
 	int	i;
 	int	j;
-	int	width;
-	int	tab;
+	int	player;
 
 	i = -1;
-	width = 0;
+	player = 0;
 	while (all->map->map[++i])
 	{
-		j = 0;
-		tab = 0;
-		while (all->map->map[i][j])
-			j++;
-		if (j > width)
-			width = j + tab;
-	}
-	return (width);
-}
-
-static void	start_end_line(int *start_line, int *end_line, char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && line[i] == ' ')
-		i++;
-	*start_line = i;
-	while (line[i] && line[i] != '\n')
-		i++;
-	if (line [i - 1])
-	{
-		i--;
-		while (line[i] && line[i] == ' ' && i != 0)
-			i--;
-		*end_line = i;
-	}
-}
-
-
-static int	check_first_and_last_line(t_all *all, int last_line)
-{
-	int	i;
-	int	j;
-	
-	i = -1;
-	while (all->map->map[++i])
-	{
-		j = 0;
-		if (i == 0 || i == last_line)
+		j = -1;
+		while (all->map->map[i][++j] && all->map->map[i][j] != '\n')
 		{
-			while (all->map->map[i][j] && all->map->map[i][j] != '\n')
-			{
-				if (all->map->map[i][j] != '1'
-					&& all->map->map[i][j] != ' ')
-					return (0);
-				j++;
-			}
+			if (all->map->map[i][j] == 'N'
+				|| all->map->map[i][j] == 'S'
+				|| all->map->map[i][j] == 'E'
+				|| all->map->map[i][j] == 'W')
+				player++;
+		}
+		if (player > 1)
+			return (0);
+	}
+	if (player == 0)
+		return (0);
+	return (1);
+}
+
+static int	check_content_map(t_all *all)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (all->map->map[++i])
+	{
+		j = -1;
+		while (all->map->map[i][++j] && all->map->map[i][j] != '\n')
+		{
+			if (all->map->map[i][j] != '1'
+			&& all->map->map[i][j] != '0'
+			&& all->map->map[i][j] != 'N'
+			&& all->map->map[i][j] != 'S'
+			&& all->map->map[i][j] != 'E'
+			&& all->map->map[i][j] != ' '
+			&& all->map->map[i][j] != 'W')
+				return (0);
 		}
 	}
 	return (1);
 }
 
-static int	check_intermediate_line(t_all *all, int last_line)
+static int	check_arround_space(t_all *all, char **arr, int i, int j)
 {
-	int	i;
-	int	start;
-	int	end;
-
-	i = 0;
-	while (all->map->map[++i] && i < last_line)
-	{
-		start_end_line(&start, &end, all->map->map[i]);
-		if (all->map->map[i][start] != '1' || all->map->map[i][end] != '1')
+	size_map(all, arr[i]);
+	if (i == 0 || i == all->map->last_line || j == 0 || j == all->map->end_line)
+		return (0);
+	if (arr[i - 1][j])
+		if (arr[i - 1][j] == '*')
 			return (0);
-		while (all->map->map[i][start++] && start < end)
-		{
-			if (all->map->map[i][start] != '1'
-			&& all->map->map[i][start] != '0'
-			&& all->map->map[i][start] != 'N'
-			&& all->map->map[i][start] != 'S'
-			&& all->map->map[i][start] != 'E'
-			&& all->map->map[i][start] != 'W')
-				return (0);
-		}
-	}
+	if (arr[i + 1][j])
+		if (arr[i + 1][j] == '*')
+			return (0);
+	if (arr[i][j - 1])
+		if (arr[i][j - 1] == '*')
+			return (0);
+	if (arr[i][j + 1])
+		if (arr[i][j + 1] == '*')
+			return (0);
 	return (1);
 }
 
@@ -106,82 +87,20 @@ static int	check_if_map_closed(t_all *all, int last_line)
 {
 	int		i;
 	int		j;
-	int		width;
-	char	**square;
-	int		start;
-	int		end;
-	
-	i = 0;
-	while (all->map->map[i] && i <= last_line)
-		i++;
-	square = malloc(sizeof(char *) * (i + 1));
-	if (!square)
-		return (0);
+	char	**arr;
+
 	i = -1;
-	width = width_map(all);
-	j = 0;
-	while (all->map->map[++i] && i <= last_line)
-	{
-		square[j] = malloc(sizeof(char) * (width + 1));
-		if (!square[j])
-			return (0);
-		j++;
-	}
-	i = -1;
-	while (all->map->map[++i] && i <= last_line)
-	{
-		j = 0;
-		start_end_line(&start, &end, all->map->map[i]);
-		while (all->map->map[i][j] && j <= end)
-		{
-			square[i][j] = all->map->map[i][j];
-			j++;
-		}
-		if (j < width)
-		{
-			while (j < width - 1)
-			{
-				square[i][j] = ' ';
-				j++;
-			}
-			square[i][j] = '\n';
-			square[i][j + 1] = '\0';
-		}
-		else
-			square[i][j] = '\0';
-	}
-	square[last_line + 1] = NULL;
-	i = -1;
-	while (square[++i])
+	arr = create_square(all, last_line);
+	while (arr[++i])
 	{
 		j = -1;
-		while( square[i][++j] && square[i][j] != '\n')
+		while (arr[i][++j] && arr[i][j] != '\n')
 		{
-			if (square[i][j] == ' ')
-				square[i][j] = '*';
-		}
-	}
-	i = -1;
-	while (square[++i])
-	{
-		j = -1;
-		while (square[i][++j] && square[i][j] != '\n')
-		{
-			if (square[i][j] == '0')
-			{
-				if (square[i - 1][j])
-					if (square[i - 1][j] == '*')
-						return (0);
-				if (square[i + 1][j])
-					if (square[i + 1][j] == '*')
-						return (0);
-				if (square[i][j - 1])
-					if (square[i][j - 1] == '*')
-						return (0);
-				if (square[i][j + 1])
-					if (square[i][j + 1] == '*')
-						return (0);
-			}
+			if (arr[i][j] == '0' || arr[i][j] == 'N'
+				|| arr[i][j] == 'S' || arr[i][j] == 'E'
+				|| arr[i][j] == 'W')
+				if (!check_arround_space(all, arr, i, j))
+					return (0);
 		}
 	}
 	return (1);
@@ -189,25 +108,11 @@ static int	check_if_map_closed(t_all *all, int last_line)
 
 int	check_body_map(t_all *all)
 {
-	int	i;
-	// int	j;
-	int	last_line;
-
-	i = 0;
-	while (all->map->map[i])
-		i++;
-	i -= 1;
-	while (i != 0 && all->map->map[i][0] == '\n')
-		i--;
-	last_line = i;
-	if (!check_first_and_last_line(all, last_line))
-	{
-		printf("ici\n");
+	if (!check_content_map(all))
 		return (0);
-	}
-	if (!check_intermediate_line(all, last_line))
+	if (!check_player_map(all))
 		return (0);
-	if (!check_if_map_closed(all, last_line))
+	if (!check_if_map_closed(all, all->map->last_line))
 		return (0);
 	return (1);
 }

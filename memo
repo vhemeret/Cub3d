@@ -1,0 +1,7 @@
+reste:
+
+-position player
+-orientation spawn
+-merge
+-secure fonction minilibx
+-checker leaks
