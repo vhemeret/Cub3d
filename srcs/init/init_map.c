@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:19:51 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/09/13 15:47:59 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/09/13 17:00:39 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_nb_lines()
 	int		fd;
 
 	i = 0;
-	fd = open("../../map/test.cub", O_RDONLY);
+	fd = open("/mnt/nfs/homes/brhajji-/Desktop/Cub3d/map/test.cub", O_RDONLY);
 	if (fd == -1)
 		return (0);
 	line = get_next_line(fd);
@@ -44,9 +44,12 @@ char	**init_map()
 	i = 0;
 	size = get_nb_lines();
 	map = malloc(sizeof(char *) * (size + 1));
-	fd = open("../../map/test.cub", O_RDONLY);
+	fd = open("/mnt/nfs/homes/brhajji-/Desktop/Cub3d/map/test.cub", O_RDONLY);
 	if (fd == -1)
+	{
+		printf("test");	
 		return (NULL);
+	}
 	while (i <= size)
 	{
 		map[i] = get_next_line(fd);
@@ -55,7 +58,7 @@ char	**init_map()
 	return (map);
 }
 
-void	init(t_data_engine	**engine, char **map)
+void	init(t_data_engine	**engine)
 {
 	(*engine) = malloc(sizeof(t_data_engine));
 	(*engine)->img = malloc(sizeof(t_data_img));
@@ -65,8 +68,8 @@ void	init(t_data_engine	**engine, char **map)
 	(*engine)->player = malloc(sizeof(t_player));
 	(*engine)->player->vue_x = 1920 / 2;
 	(*engine)->player->vue_y = 540;
-	(*engine)->player->x = 17;
-	(*engine)->player->y = 3;
+	(*engine)->player->x = 1;
+	(*engine)->player->y = 2;
 	(*engine)->player->vec_x = -1;
 	(*engine)->player->vec_y = 0;
 	(*engine)->map->line = get_nb_lines();

@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:29:50 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/09/13 14:50:38 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/09/13 17:01:16 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	display_map(t_data_engine	*engine)
 			&engine->img->line_l, &engine->img->endian);
 	engine->init->window = mlx_new_window(engine->init->mlx,  1920, 1080,
 			"CUB3D");
-	put_pixel(engine, NULL);
+	//put_pixel(engine, NULL);
 	//insert_sprite(engine);
 	//set_element_on_display(engine);
 }

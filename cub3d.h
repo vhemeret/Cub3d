@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/13 15:51:41 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/09/13 16:45:11 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,6 @@ void	display_map(t_data_engine	*engine);
 void	put_pixel(t_data_engine *engine, void *img);
 void	my_mlx_pixel_put(t_data_engine *data, int x, int y, int color);
 unsigned int	get_color_pixel(t_data_engine *engine, void *img, int y, int x);
-void	init(t_data_engine	**engine, char **map);
-
+void	init(t_data_engine	**engine);
+int	main_loop(t_data_engine *engine);
 #endif

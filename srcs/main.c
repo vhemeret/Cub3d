@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:28:12 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/13 15:54:32 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/09/13 17:02:56 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,18 @@ int	main(int ac, char **av)
 {
 	char	**map;
 	t_data_engine	*engine;
-	double planeX = 0, planeY = 0.66;
-	int x;
 
-	x = 0;
 	engine = NULL;
 	map = NULL;
 	if (ac == 2)
 	{
-		init(&engine, NULL);
+		init(&engine);
 		display_map(engine);
 		mlx_put_image_to_window(engine->init->mlx, engine->init->window,
 			engine->img->img, 0, 0);
 		mlx_key_hook(engine->init->window, key_hook, engine);
-		mlx_hook(engine->init->window, 17, 0, mlx_loop_end, engine->init->mlx);
 		mlx_loop_hook(engine->init->mlx, &main_loop, engine);
+		mlx_hook(engine->init->window, 17, 0, mlx_loop_end, engine->init->mlx);
 		mlx_loop(engine->init->mlx);
 		if (!manage_parsing(av[1], map))
 		{
