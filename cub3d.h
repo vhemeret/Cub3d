@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/04 21:22:59 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/04 21:27:03 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@
 
 /*###################### DEFINE #######################*/
 
-// typedef struct s_mem
-// {
-// 	struct s_mem	*next;
-// 	void			*addr;
-// }				t_mem;
+typedef struct s_mem
+{
+	struct s_mem	*next;
+	void			*addr;
+}				t_mem;
 
 typedef struct s_face
 {
