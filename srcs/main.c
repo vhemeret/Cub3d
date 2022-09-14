@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:28:12 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/13 17:02:56 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/09/14 16:53:43 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,13 @@ int	main(int ac, char **av)
 		mlx_hook(engine->init->window, 17, 0, mlx_loop_end, engine->init->mlx);
 		mlx_loop(engine->init->mlx);
 		if (!manage_parsing(av[1], map))
-		{
-			// printf("error\n");
 			return (0);
+<<<<<<< HEAD
 		}
+=======
+		// else
+		// 	manage_process(av,map);
+>>>>>>> 47437ea73b501c5c9cc357e73f57524be2377808
 	}
 	else
 		printf("Error\nThe number of argument are invalid.\n");

@@ -6,7 +6,11 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/09/13 16:45:11 by brhajji-         ###   ########.fr       */
+=======
+/*   Updated: 2022/09/13 21:21:57 by vahemere         ###   ########.fr       */
+>>>>>>> 47437ea73b501c5c9cc357e73f57524be2377808
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +81,23 @@ int		manage_parsing(char *path, char **map);
 int		check_fd(char *path);
 char	**get_map(char *path);
 int		check_map(char **map);
+int		check_face_texture(char **m, t_face face);
+int		check_path_texture(char **map);
+int		check_data_rgb(char **map);
+int		check_value_rgb(char **map);
+int		check_value(char **rgb);
 
 /*##################### DISPLAY #####################*/
+
+/*##################### CLEANING #####################*/
+
+void	free_double_arr(char **arr);
+
+/*##################### UTILS #####################*/
+
+char	**ft_split(char const *s, char c);
+char	*remove_wspace(char *str);
+int		ft_atoi(const char *nptr);
 
 void	display_map(t_data_engine	*engine);
 void	put_pixel(t_data_engine *engine, void *img);

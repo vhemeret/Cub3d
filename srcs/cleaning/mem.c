@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 15:52:16 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/01 16:05:11 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/13 21:24:53 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // {
 // 	t_mem		*mem;
 // 	t_mem		*tmp;
-	
+
 // 	mem = malloc(sizeof(t_mem));
 // 	mem->addr = addr;
 // 	mem->next = NULL;
@@ -50,7 +50,7 @@
 // 		{
 // 			free(tmp->addr);
 // 			free(tmp);
-				
+
 // 		}
 // 		prev = tmp;
 // 		tmp = tmp->next;
