@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:28:12 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/14 16:53:43 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/09/15 16:19:10 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,12 @@ int	main(int ac, char **av)
 {
 	char	**map;
 	t_data_engine	*engine;
+	t_all	*all;
 
 	engine = NULL;
+	all = malloc(sizeof(t_all));
+	if (!all)
+		return (0);
 	map = NULL;
 	if (ac == 2)
 	{
@@ -46,14 +50,10 @@ int	main(int ac, char **av)
 		mlx_loop_hook(engine->init->mlx, &main_loop, engine);
 		mlx_hook(engine->init->window, 17, 0, mlx_loop_end, engine->init->mlx);
 		mlx_loop(engine->init->mlx);
-		if (!manage_parsing(av[1], map))
+		if (!manage_parsing(av[1], map, all))
 			return (0);
-<<<<<<< HEAD
-		}
-=======
 		// else
 		// 	manage_process(av,map);
->>>>>>> 47437ea73b501c5c9cc357e73f57524be2377808
 	}
 	else
 		printf("Error\nThe number of argument are invalid.\n");
