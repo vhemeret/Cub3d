@@ -6,7 +6,7 @@
 #    By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 04:35:45 by vahemere          #+#    #+#              #
-#    Updated: 2022/09/13 21:17:28 by vahemere         ###   ########.fr        #
+#    Updated: 2022/09/15 15:52:38 by vahemere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,11 @@ SRCS_DIR = $(shell find srcs -type d)
 
 vpath %.c $(foreach dir, $(SRCS_DIR), $(dir))
 SRCS = main.c \
-check_fd.c get_map.c parsing.c check_map.c check_texture_map.c \
+check_fd.c get_map.c parsing.c check_map.c check_data_map.c check_data_map_utils.c \
 get_next_line_utils.c get_next_line.c \
+get_position_player.c \
 free_double_arr.c \
-ft_split.c remove_wspace.c ft_atoi.c \
+ft_split.c remove_wspace.c ft_atoi.c ft_strncmp.c \
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.c=%.o))
 

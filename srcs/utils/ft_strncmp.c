@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_double_arr.c                                  :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 13:37:08 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/14 12:19:57 by vahemere         ###   ########.fr       */
+/*   Created: 2021/10/26 01:19:25 by vahemere          #+#    #+#             */
+/*   Updated: 2022/09/14 11:37:08 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-void	free_double_arr(char **arr)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int	i;
-
-	i = -1;
-	if (arr)
+	if (!n)
+		return (0);
+	n -= 1;
+	while (*s1 && *s2 && *s1 == *s2 && n)
 	{
-		while (arr[++i])
-		{
-			free(arr[i]);
-			arr[i] = NULL;
-		}
-		free(arr);
-		arr = NULL;
+		s1++;
+		s2++;
+		n--;
 	}
-	return ;
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }

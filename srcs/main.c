@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:28:12 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/13 21:09:36 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/15 12:10:07 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 int	main(int ac, char **av)
 {
 	char	**map;
+	t_all	*all;
 
+	all = malloc(sizeof(t_all));
+	if (!all)
+		return (0);
 	map = NULL;
 	if (ac == 2)
 	{
-		if (!manage_parsing(av[1], map))
+		if (!manage_parsing(av[1], map, all))
 			return (0);
 		// else
 		// 	manage_process(av,map);

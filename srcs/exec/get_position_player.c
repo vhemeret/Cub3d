@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_double_arr.c                                  :+:      :+:    :+:   */
+/*   get_position_player.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 13:37:08 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/14 12:19:57 by vahemere         ###   ########.fr       */
+/*   Created: 2022/09/15 12:05:21 by vahemere          #+#    #+#             */
+/*   Updated: 2022/09/15 16:02:53 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-void	free_double_arr(char **arr)
+int	get_position_player(char **map, t_pos *pos)
 {
 	int	i;
+	int	j;
 
 	i = -1;
-	if (arr)
+	pos->x = -1;
+	pos->y = -1;
+	while (map[++i])
 	{
-		while (arr[++i])
+		j = -1;
+		while (map[i][++j])
 		{
-			free(arr[i]);
-			arr[i] = NULL;
+			if (map[i][j] == 'N' || map[i][j] == 'S'
+				|| map[i][j] == 'E' || map[i][j] == 'W')
+			{
+				pos->x = j;
+				pos->y = i;
+			}
 		}
-		free(arr);
-		arr = NULL;
+			
 	}
-	return ;
+	if (pos->x == -1 && pos->y == -1)
+		return (0);
+	return (1);
 }
