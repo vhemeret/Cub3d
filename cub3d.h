@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/15 15:52:57 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/16 11:52:01 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_map
 	int		c_g;
 	int		c_b;
 	char	**map;
+	int		nb_line;
 }	t_map;
 
 typedef struct s_pos
