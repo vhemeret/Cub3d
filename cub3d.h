@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/16 11:52:01 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/18 17:15:39 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_map
 	int		c_r;
 	int		c_g;
 	int		c_b;
+	char	**map_full;
 	char	**map;
 	int		nb_line;
 }	t_map;
@@ -71,7 +72,7 @@ typedef struct s_all
 
 /*##################### PARSING #####################*/
 
-int		manage_parsing(char *path, char **map, t_all *all);
+int		manage_parsing(char *path, t_all *all);
 int		check_fd(char *path);
 char	**get_map(char *path);
 int		check_map(char **map, t_all *all);
@@ -81,6 +82,7 @@ int		check_path_texture(char *line);
 int		check_value(char **rgb);
 void	put_rgb_data(char **arr, char **rgb, t_map *data);
 void	put_path_data(char **arr, t_map *data);
+int		check_body_map(t_all *all);
 
 /*##################### EXEC #####################*/
 

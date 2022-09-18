@@ -6,40 +6,38 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 21:12:11 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/16 16:51:39 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/17 03:24:10 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-static int	count_line(char *path)
+int	count_line(char *path_to_file)
 {
 	int		fd;
+	int		nb_line;
 	char	*line;
-	int		size;
 
-	size = -1;
 	line = "";
-	fd = open(path, O_RDONLY);
+	nb_line = 0;
+	fd = open(path_to_file, O_RDONLY);
 	if (fd == -1)
 		return (0);
 	while (line)
 	{
 		line = get_next_line(fd);
 		free(line);
-		size++;
+		nb_line++;
 	}
 	close(fd);
-	return (size);
+	return (nb_line - 1);
 }
 
-static char	*put_map_in_array(char *map, char *line)
+char	*copy_line(char *map, char *line)
 {
 	int	i;
 
 	i = 0;
-	printf("%s", line); // -> sans \n affcihe pas la derniere ligne (ligne qui va etre copier)
-	printf("%s\n", line); // -> avec \n affcihe pas la derniere ligne
 	while (line[i])
 		i++;
 	map = malloc(sizeof(char) * (i + 1));
@@ -52,34 +50,31 @@ static char	*put_map_in_array(char *map, char *line)
 	return (map);
 }
 
-char	**get_map(char *path)
+char	**get_map(char *path_to_file)
 {
-	char	**map;
 	char	*line;
-	int		size;
+	char	**map;
 	int		fd;
+	int		nb_line;
 	int		i;
 
-	size = count_line(path);
-	map = malloc(sizeof(char *) * (size + 1));
+	line = "";
+	nb_line = count_line(path_to_file);
+	map = malloc(sizeof(char *) * (nb_line + 1));
 	if (!map)
 		return (NULL);
-	fd = open(path, O_RDONLY);
+	fd = open(path_to_file, O_RDONLY);
 	if (fd == -1)
 		return (NULL);
 	i = -1;
-	while (size)
+	while (nb_line)
 	{
 		line = get_next_line(fd);
-		map[++i] = put_map_in_array(*map, line);
+		map[++i] = copy_line(*map, line);
 		free(line);
 		line = NULL;
-		size--;
+		nb_line--;
 	}
 	map[i + 1] = NULL;
-	i = -1;
-	// while (map[++i])
-		// printf("%s", map[i]);
-	close(fd);
-	return (NULL);
+	return (map);
 }

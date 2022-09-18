@@ -6,7 +6,7 @@
 #    By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 04:35:45 by vahemere          #+#    #+#              #
-#    Updated: 2022/09/15 15:52:38 by vahemere         ###   ########.fr        #
+#    Updated: 2022/09/18 17:10:46 by vahemere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SRCS_DIR = $(shell find srcs -type d)
 
 vpath %.c $(foreach dir, $(SRCS_DIR), $(dir))
 SRCS = main.c \
-check_fd.c get_map.c parsing.c check_map.c check_data_map.c check_data_map_utils.c \
+check_fd.c get_map.c parsing.c check_map.c check_data_map.c check_data_map_utils.c check_body_map.c \
 get_next_line_utils.c get_next_line.c \
 get_position_player.c \
 free_double_arr.c \
