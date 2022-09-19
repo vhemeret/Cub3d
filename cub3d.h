@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/15 16:18:30 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/09/19 11:10:09 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ typedef struct s_map
 	int		c_r;
 	int		c_g;
 	int		c_b;
+	char	**map_full;
 	char	**map;
+	int		nb_line;
 }	t_map;
 
 typedef struct s_pos
@@ -103,7 +105,7 @@ typedef struct s_all
 
 /*##################### PARSING #####################*/
 
-int		manage_parsing(char *path, char **map, t_all *all);
+int		manage_parsing(char *path, t_all *all);
 int		check_fd(char *path);
 char	**get_map(char *path);
 int		check_map(char **map, t_all *all);
@@ -113,6 +115,7 @@ int		check_path_texture(char *line);
 int		check_value(char **rgb);
 void	put_rgb_data(char **arr, char **rgb, t_map *data);
 void	put_path_data(char **arr, t_map *data);
+int		check_body_map(t_all *all);
 
 int		get_position_player(char **map, t_pos *pos);
 

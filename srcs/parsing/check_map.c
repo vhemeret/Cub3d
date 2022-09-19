@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 13:57:09 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/15 16:05:27 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/18 17:10:02 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,113 +41,24 @@ static int	parsing_data_map(char **map, int *i, t_map *data)
 	return (1);
 }
 
-int	check_top(char **map, t_pos *pos)
-{
-	int	x;
-	int	y;
-
-	x = pos->x;
-	y = pos->y;
-	while (map[y][x] && map[y][x] != '1' && y != 0)
-		y--;
-	if (map[y][x] != '1')
-		return (0);
-	return (1);
-}
-
-int	check_bot(char **map, t_pos *pos)
+static int	parsing_body_map(char **map, t_all *all)
 {
 	int	i;
-	int	x;
-	int	y;
 
-	x = pos->x;
-	y = pos->y;
 	i = 0;
 	while (map[i])
 		i++;
-	while (map[y][x] && y < i && map[y][x] != '1')
-		y++;
-	if (map[y][x] != '1')
+	all->map->nb_line = i;
+	all->map->map = malloc(sizeof(char *) * (all->map->nb_line + 1));
+	if (!all->map->map)
+		return (0);
+	i = -1;
+	while (map[++i])
+		all->map->map[i] = map[i];
+	all->map->map[i] = NULL;
+	if (!check_body_map(all))
 		return (0);
 	return (1);
-}
-
-int	check_right(char **map, t_pos *pos)
-{
-	int	x;
-	int	y;
-
-	x = pos->x;
-	y = pos->y;
-	while (map[y][x] && map[y][x] != '1' && map[y][x] != '\n')
-	{
-		if (!check_top(map, pos))
-		{
-		printf("ici1\n");
-			return (0);
-		}
-		if (!check_bot(map, pos))
-		{
-		printf("ici22\n");
-			return (0);
-		}
-		x++;
-	}
-	if (map[y][x])
-	{
-		if (map[y][x] == '\n')
-		{
-		printf("ici3\n");
-			return (0);
-		}
-	}
-	else
-	{
-		printf("ici4\n");
-		return (0);
-	}
-	return (1);
-}
-
-int	check_left(char **map, t_pos *pos)
-{
-	int	x;
-	int	y;
-
-	x = pos->x;
-	y = pos->y;
-	while (map[y][x] && map[y][x] != '1' && x != 0)
-	{
-		if (!check_top(map, pos))
-			return (0);
-		if (!check_bot(map, pos))
-			return (0);
-		x--;
-	}
-	if (map[y][x] != '1')
-		return (0);
-	return (1);
-}
-
-static int	parsing_body_map(char **map, t_all *all)
-{
-	// int	i;
-
-	// i = -1;
-	// while (map[++i])
-	// 	printf("%s", map[i]);
-	if (!get_position_player(map, all->pos))
-		return (0);
-	if (!check_right(map, all->pos))
-		return (0);
-	if (!check_left(map, all->pos))
-	{
-		printf("ici2\n");
-		return (0);
-	}
-	return (1);
-	
 }
 
 int	check_map(char **map, t_all *all)
@@ -162,9 +73,6 @@ int	check_map(char **map, t_all *all)
 	}
 	while (map[i] && map[i][0] == '\n')
 		i++;
-	all->pos = malloc(sizeof(t_pos));
-	if (!all->pos)
-		return (0);
 	if (!parsing_body_map(&map[i], all))
 	{
 		printf("Error: map invalid\n");

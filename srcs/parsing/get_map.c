@@ -6,56 +6,75 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 21:12:11 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/14 21:53:07 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/17 03:24:10 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-static int	count_line(char *path)
+int	count_line(char *path_to_file)
 {
 	int		fd;
+	int		nb_line;
 	char	*line;
-	int		size;
 
-	size = -1;
 	line = "";
-	fd = open(path, O_RDONLY);
+	nb_line = 0;
+	fd = open(path_to_file, O_RDONLY);
 	if (fd == -1)
 		return (0);
 	while (line)
 	{
 		line = get_next_line(fd);
 		free(line);
-		size++;
+		nb_line++;
 	}
 	close(fd);
-	return (size);
+	return (nb_line - 1);
 }
 
-static char	**put_map_in_array(char *path, char **map, int size)
+char	*copy_line(char *map, char *line)
 {
-	int		fd;
-	int		i;
+	int	i;
 
-	i = -1;
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
+	i = 0;
+	while (line[i])
+		i++;
+	map = malloc(sizeof(char) * (i + 1));
+	if (!map)
 		return (NULL);
-	while (++i < size)
-		map[i] = get_next_line(fd);
-	map[i] = NULL;
+	i = -1;
+	while (line[++i])
+		map[i] = line[i];
+	map[i] = '\0';
 	return (map);
 }
 
-char	**get_map(char *path)
+char	**get_map(char *path_to_file)
 {
+	char	*line;
 	char	**map;
+	int		fd;
+	int		nb_line;
+	int		i;
 
-	map = malloc(sizeof(char *) * (count_line(path) + 1));
+	line = "";
+	nb_line = count_line(path_to_file);
+	map = malloc(sizeof(char *) * (nb_line + 1));
 	if (!map)
 		return (NULL);
-	if (!put_map_in_array(path, map, count_line(path)))
+	fd = open(path_to_file, O_RDONLY);
+	if (fd == -1)
 		return (NULL);
+	i = -1;
+	while (nb_line)
+	{
+		line = get_next_line(fd);
+		map[++i] = copy_line(*map, line);
+		free(line);
+		line = NULL;
+		nb_line--;
+	}
+	map[i + 1] = NULL;
 	return (map);
 }
