@@ -6,7 +6,7 @@
 #    By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 04:35:45 by vahemere          #+#    #+#              #
-#    Updated: 2022/09/18 17:10:46 by vahemere         ###   ########.fr        #
+#    Updated: 2022/09/24 01:20:33 by vahemere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS = main.c \
 check_fd.c get_map.c parsing.c check_map.c check_data_map.c check_data_map_utils.c check_body_map.c \
 get_next_line_utils.c get_next_line.c \
 get_position_player.c \
-free_double_arr.c \
+free_double_arr.c mem.c \
 ft_split.c remove_wspace.c ft_atoi.c ft_strncmp.c \
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.c=%.o))
@@ -32,7 +32,7 @@ LIB_NAME = $(LIB_DIR)/libmlx_Linux.a
 ########################### COMPILATION AND FLAGS ###########################
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 #-fsanitize=address
 LIB_FLAGS = -lXext -lX11 -lm
 
 ##################################### COLOR ##################################

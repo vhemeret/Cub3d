@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 17:07:53 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/18 23:46:44 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/24 01:43:33 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ static int	check_if_map_closed(t_all *all, int last_line)
 	i = 0;
 	while (all->map->map[i] && i <= last_line)
 		i++;
-	square = malloc(sizeof(char *) * (i + 1));
+	square = ft_malloc((sizeof(char *) * (i + 1)), &all->mem);
 	if (!square)
 		return (0);
 	i = -1;
@@ -122,7 +122,7 @@ static int	check_if_map_closed(t_all *all, int last_line)
 	j = 0;
 	while (all->map->map[++i] && i <= last_line)
 	{
-		square[j] = malloc(sizeof(char) * (width + 1));
+		square[j] = ft_malloc((sizeof(char) * (width + 1)), &all->mem);
 		if (!square[j])
 			return (0);
 		j++;
@@ -190,7 +190,6 @@ static int	check_if_map_closed(t_all *all, int last_line)
 int	check_body_map(t_all *all)
 {
 	int	i;
-	// int	j;
 	int	last_line;
 
 	i = 0;
@@ -201,10 +200,7 @@ int	check_body_map(t_all *all)
 		i--;
 	last_line = i;
 	if (!check_first_and_last_line(all, last_line))
-	{
-		printf("ici\n");
 		return (0);
-	}
 	if (!check_intermediate_line(all, last_line))
 		return (0);
 	if (!check_if_map_closed(all, last_line))

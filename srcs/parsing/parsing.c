@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:38:02 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/18 17:04:55 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/24 01:39:58 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,15 @@ int	manage_parsing(char *path, t_all *all)
 {
 	if (!check_fd(path))
 		return (0);
-	all->map = malloc(sizeof(t_map));
+	all->map = ft_malloc(sizeof(t_map), &all->mem);
 	if (!all->map)
 		return (0);
 	init_data_map(all->map);
-	all->map->map_full = get_map(path);
+	all->map->map_full = get_map(path, &all->mem);
 	if (all->map->map_full)
 	{
 		if (!check_map(all->map->map_full, all))
-		{
-			free_double_arr(all->map->map_full);
 			return (0);
-		}
-		free_double_arr(all->map->map_full);
 	}
 	else
 		return (0);

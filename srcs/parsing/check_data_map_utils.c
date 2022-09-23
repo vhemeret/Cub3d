@@ -6,22 +6,22 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:13:23 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/14 17:59:48 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/24 01:20:16 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-void	put_path_data(char **arr, t_map *data)
+void	put_path_data(char **arr, t_all *all)
 {
 	if (arr[0][0] == 'N')
-		data->path_texture_no = remove_wspace(arr[1]);
+		all->map->path_texture_no = remove_wspace(arr[1], all);
 	else if (arr[0][0] == 'S')
-		data->path_texture_so = remove_wspace(arr[1]);
+		all->map->path_texture_so = remove_wspace(arr[1], all);
 	else if (arr[0][0] == 'W')
-		data->path_texture_we = remove_wspace(arr[1]);
+		all->map->path_texture_we = remove_wspace(arr[1], all);
 	else if (arr[0][0] == 'E')
-		data->path_texture_ea = remove_wspace(arr[1]);
+		all->map->path_texture_ea = remove_wspace(arr[1], all);
 }
 
 void	put_rgb_data(char **arr, char **rgb, t_map *data)
@@ -67,14 +67,13 @@ int	wich_data(char *data, t_face face)
 	return (1);
 }
 
-int	check_path_texture(char *line)
+int	check_path_texture(char *line, t_all *all)
 {
 	int			fd;
 	char		*path;
 
-	path = remove_wspace(line);
+	path = remove_wspace(line, all);
 	fd = open(path, O_RDONLY);
-	free(path);
 	path = NULL;
 	if (fd == -1)
 		return (0);
@@ -85,14 +84,20 @@ int	check_path_texture(char *line)
 int	check_value(char **rgb)
 {
 	int	i;
+	int	j;
 	int	nb;
 
 	i = -1;
 	while (rgb[++i])
 	{
-		if (rgb[i][0])
-			if (rgb[i][0] < '0' || rgb[i][0] > '9')
+		j = -1;
+		while (rgb[i][++j] && rgb[i][j] != '\n')
+			if (rgb[i][j] < '0' || rgb[i][j] > '9')
 				return (0);
+	}
+	i = -1;
+	while (rgb[++i])
+	{
 		nb = ft_atoi(rgb[i]);
 		if (nb < 0 || nb > 255)
 			return (0);

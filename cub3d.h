@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/18 17:15:39 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/24 01:37:16 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@
 
 /*##################### STRUCTURES #####################*/
 
-// typedef struct s_mem
-// {
-// 	struct s_mem	*next;
-// 	void			*addr;
-// }				t_mem;
+typedef struct s_mem
+{
+	struct s_mem	*next;
+	struct s_mem	*back;
+	void			*addr;
+}				t_mem;
 
 typedef struct s_face
 {
@@ -68,20 +69,21 @@ typedef struct s_all
 {
 	t_map	*map;
 	t_pos	*pos;
+	t_mem	*mem;
 } t_all;
 
 /*##################### PARSING #####################*/
 
 int		manage_parsing(char *path, t_all *all);
 int		check_fd(char *path);
-char	**get_map(char *path);
+char	**get_map(char *path, t_mem **mem);
 int		check_map(char **map, t_all *all);
-int		check_data(char **map, t_face face, t_map *data);
+int		check_data(char **map, t_face face, t_all *all);
 int		wich_data(char *data, t_face face);
-int		check_path_texture(char *line);
+int		check_path_texture(char *line, t_all *all);
 int		check_value(char **rgb);
 void	put_rgb_data(char **arr, char **rgb, t_map *data);
-void	put_path_data(char **arr, t_map *data);
+void	put_path_data(char **arr, t_all *all);
 int		check_body_map(t_all *all);
 
 /*##################### EXEC #####################*/
@@ -91,11 +93,14 @@ int		get_position_player(char **map, t_pos *pos);
 /*##################### CLEANING #####################*/
 
 void	free_double_arr(char **arr);
+void	*ft_malloc(size_t size, t_mem **mem);
+void	ft_free(void *addr, t_mem **mem);
+void	free_all(t_mem **mem);
 
 /*##################### UTILS #####################*/
 
 char	**ft_split(char const *s, char c);
-char	*remove_wspace(char *str);
+char	*remove_wspace(char *str, t_all *all);
 int		ft_atoi(const char *nptr);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 

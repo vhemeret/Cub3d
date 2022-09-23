@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 21:12:11 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/17 03:24:10 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/24 01:36:58 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ int	count_line(char *path_to_file)
 	return (nb_line - 1);
 }
 
-char	*copy_line(char *map, char *line)
+char	*copy_line(char *map, char *line, t_mem **mem)
 {
 	int	i;
 
 	i = 0;
 	while (line[i])
 		i++;
-	map = malloc(sizeof(char) * (i + 1));
+	map = ft_malloc(sizeof(char) * (i + 1), mem);
 	if (!map)
 		return (NULL);
 	i = -1;
@@ -50,7 +50,7 @@ char	*copy_line(char *map, char *line)
 	return (map);
 }
 
-char	**get_map(char *path_to_file)
+char	**get_map(char *path_to_file, t_mem **mem)
 {
 	char	*line;
 	char	**map;
@@ -60,7 +60,7 @@ char	**get_map(char *path_to_file)
 
 	line = "";
 	nb_line = count_line(path_to_file);
-	map = malloc(sizeof(char *) * (nb_line + 1));
+	map = ft_malloc(sizeof(char *) * (nb_line + 1), mem);
 	if (!map)
 		return (NULL);
 	fd = open(path_to_file, O_RDONLY);
@@ -70,7 +70,7 @@ char	**get_map(char *path_to_file)
 	while (nb_line)
 	{
 		line = get_next_line(fd);
-		map[++i] = copy_line(*map, line);
+		map[++i] = copy_line(*map, line, mem);
 		free(line);
 		line = NULL;
 		nb_line--;

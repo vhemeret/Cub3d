@@ -6,13 +6,13 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 13:57:09 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/18 17:10:02 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/24 01:10:51 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-static int	parsing_data_map(char **map, int *i, t_map *data)
+static int	parsing_data_map(char **map, int *i, t_all *all)
 {
 	t_face	face;
 
@@ -28,7 +28,7 @@ static int	parsing_data_map(char **map, int *i, t_map *data)
 	{
 		if (map[*i][0] && map[*i][0] != '\n')
 		{
-			if (!check_data(&map[*i], face, data))
+			if (!check_data(&map[*i], face, all))
 				return (0);
 			face.data++;
 		}
@@ -49,7 +49,7 @@ static int	parsing_body_map(char **map, t_all *all)
 	while (map[i])
 		i++;
 	all->map->nb_line = i;
-	all->map->map = malloc(sizeof(char *) * (all->map->nb_line + 1));
+	all->map->map = ft_malloc((sizeof(char *) * (all->map->nb_line + 1)), &all->mem);
 	if (!all->map->map)
 		return (0);
 	i = -1;
@@ -66,7 +66,7 @@ int	check_map(char **map, t_all *all)
 	int	i;
 
 	i = 0;
-	if (!parsing_data_map(map, &i, all->map))
+	if (!parsing_data_map(map, &i, all))
 	{
 		printf("Error: data parsing\n");
 		return (0);
