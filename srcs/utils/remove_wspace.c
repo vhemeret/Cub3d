@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 13:09:54 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/24 01:04:53 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:06:06 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*remove_wspace(char *str, t_all *all)
 	char	*ret;
 
 	i = 0;
-	while (str[i] && (str[i] >= 9 && str[i] <= 13))
+	while (str[i] && (str[i] >= 9 && str[i] <= 13) && str[i] == ' ')
 		i++;
 	j = i;
 	while (str[j] && (str[j] < 9 || str[j] > 13))
@@ -37,5 +37,6 @@ char	*remove_wspace(char *str, t_all *all)
 		j++;
 	}
 	ret[k] = '\0';
+	printf("[%s]", str);
 	return (ret);
 }

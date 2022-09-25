@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:12:53 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/24 01:17:37 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:11:35 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,28 @@ int	check_virgule(char *rgb)
 	return (1);
 }
 
-int	check_value_rgb(char *line, t_map *data)
+int	check_value_rgb(char *line, t_all *all)
 {
 	char	**arr;
 	char	**rgb;
-	
-	arr = ft_split(line, ' ');
+
+	arr = ft_split(line, ' ', all);
 	if (arr[1])
 	{
 		if (!check_virgule(arr[1]))
-			return (0);	
-		rgb = ft_split(arr[1], ',');
+			return (0);
+		rgb = ft_split(arr[1], ',', all);
 	}
 	if (rgb)
 	{
 		if (!check_value(rgb))
-		{
-			free_double_arr(rgb);
 			return (0);
-		}
-		put_rgb_data(arr, rgb, data);
-		free_double_arr(rgb);
+		put_rgb_data(arr, rgb, all->map);
 	}
-	free_double_arr(arr);
 	return (1);
 }
 
-int	check_rgb(char *map, t_face face, t_map *data)
+int	check_rgb(char *map, t_face face, t_all *all)
 {
 	if (map[1])
 	{
@@ -71,7 +66,7 @@ int	check_rgb(char *map, t_face face, t_map *data)
 		{
 			if (!wich_data(map, face))
 				return (0);
-			if (!check_value_rgb(map, data))
+			if (!check_value_rgb(map, all))
 				return (0);
 		}
 	}
@@ -92,17 +87,13 @@ int	check_texture(char *map, t_face face, t_all *all)
 		{
 			if (!wich_data(map, face))
 				return (0);
-			arr = ft_split(map, ' ');
+			arr = ft_split(map, ' ', all);
 			if (arr[1])
 			{
 				if (!check_path_texture(arr[1], all))
-				{
-					free_double_arr(arr);
 					return (0);
-				}
 				put_path_data(arr, all);
 			}	
-			free_double_arr(arr);
 		}
 	}
 	else
@@ -111,20 +102,29 @@ int	check_texture(char *map, t_face face, t_all *all)
 }
 
 int	check_data(char **map, t_face face, t_all *all)
-{	
-	if (ft_strncmp(*map, "NO", 2) == 0 || ft_strncmp(*map, "SO", 2) == 0)
+{
+	char	*line;
+	
+	if (*map[0] == ' ')
 	{
-		if (!check_texture(*map, face, all))
+		printf("->%s", *map);
+		line = remove_wspace(*map, all);
+	}
+	else
+		line = *map;
+	if (ft_strncmp(line, "NO", 2) == 0 || ft_strncmp(line, "SO", 2) == 0)
+	{
+		if (!check_texture(line, face, all))
 			return (0);
 	}
-	else if (ft_strncmp(*map, "WE", 2) == 0 || ft_strncmp(*map, "EA", 2) == 0)
+	else if (ft_strncmp(line, "WE", 2) == 0 || ft_strncmp(line, "EA", 2) == 0)
 	{
-		if (!check_texture(*map, face, all))
+		if (!check_texture(line, face, all))
 			return (0);
 	}
-	else if (ft_strncmp(*map, "F", 1) == 0 || ft_strncmp(*map, "C", 1) == 0)
+	else if (ft_strncmp(line, "F", 1) == 0 || ft_strncmp(line, "C", 1) == 0)
 	{
-		if (!check_rgb(*map, face, all->map))
+		if (!check_rgb(line, face, all))
 			return (0);
 	}
 	else

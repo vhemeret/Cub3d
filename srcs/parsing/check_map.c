@@ -6,15 +6,16 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 13:57:09 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/24 01:10:51 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/25 18:59:52 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-static int	parsing_data_map(char **map, int *i, t_all *all)
+static int parsing_data_map(char **map, int *i, t_all *all)
 {
-	t_face	face;
+	t_face face;
+	int		j;
 
 	face.NO = 0;
 	face.SO = 0;
@@ -26,7 +27,11 @@ static int	parsing_data_map(char **map, int *i, t_all *all)
 	*i = 0;
 	while (map[*i] && face.data != 6)
 	{
-		if (map[*i][0] && map[*i][0] != '\n')
+		j = 0;
+		if (map[*i][j] == ' ')
+			while (map[*i][j] && map[*i][j] == ' ')
+				j++;
+		if (map[*i][j] && map[*i][j] != '\n')
 		{
 			if (!check_data(&map[*i], face, all))
 				return (0);
@@ -34,22 +39,19 @@ static int	parsing_data_map(char **map, int *i, t_all *all)
 		}
 		(*i)++;
 	}
-	if (face.data != 6
-		&& (face.NO != 1 || face.SO != 1 || face.WE != 1 || face.EA != 1)
-		&& (face.F != 1 || face.C != 1))
+	if (face.data != 6 && (face.NO != 1 || face.SO != 1 || face.WE != 1 || face.EA != 1) && (face.F != 1 || face.C != 1))
 		return (0);
 	return (1);
 }
 
-static int	parsing_body_map(char **map, t_all *all)
+static int parsing_body_map(char **map, t_all *all)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (map[i])
 		i++;
-	all->map->nb_line = i;
-	all->map->map = ft_malloc((sizeof(char *) * (all->map->nb_line + 1)), &all->mem);
+	all->map->map = ft_malloc((sizeof(char *) * (i + 1)), &all->mem);
 	if (!all->map->map)
 		return (0);
 	i = -1;
@@ -61,9 +63,9 @@ static int	parsing_body_map(char **map, t_all *all)
 	return (1);
 }
 
-int	check_map(char **map, t_all *all)
+int check_map(char **map, t_all *all)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (!parsing_data_map(map, &i, all))

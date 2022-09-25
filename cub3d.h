@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/24 01:37:16 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/25 18:38:17 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ typedef struct s_map
 	int		c_r;
 	int		c_g;
 	int		c_b;
+	int		width;
+	int		start_line;
+	int		end_line;
 	char	**map_full;
 	char	**map;
-	int		nb_line;
 }	t_map;
 
 typedef struct s_pos
@@ -85,6 +87,8 @@ int		check_value(char **rgb);
 void	put_rgb_data(char **arr, char **rgb, t_map *data);
 void	put_path_data(char **arr, t_all *all);
 int		check_body_map(t_all *all);
+char	**create_square(t_all *all, int last_line);
+void	size_map(t_all *all, char *line);
 
 /*##################### EXEC #####################*/
 
@@ -99,7 +103,7 @@ void	free_all(t_mem **mem);
 
 /*##################### UTILS #####################*/
 
-char	**ft_split(char const *s, char c);
+char	**ft_split(char const *s, char c, t_all *all);
 char	*remove_wspace(char *str, t_all *all);
 int		ft_atoi(const char *nptr);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);

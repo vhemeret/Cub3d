@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 23:58:11 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/12 18:19:50 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/25 18:01:09 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	nb_words(char const *s, char c)
 	return (word);
 }
 
-char	*put_in_tab(char const *s, char c)
+char	*put_in_tab(char const *s, char c, t_all *all)
 {
 	char	*tab;
 	int		i;
@@ -40,7 +40,7 @@ char	*put_in_tab(char const *s, char c)
 	i = 0;
 	while (s[i] && is_sep((char)s[i], c))
 		i++;
-	tab = malloc(sizeof(*tab) * (i + 1));
+	tab = ft_malloc(sizeof(*tab) * (i + 1), &all->mem);
 	if (!tab)
 		return (NULL);
 	i = -1;
@@ -50,7 +50,7 @@ char	*put_in_tab(char const *s, char c)
 	return (tab);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c, t_all *all)
 {
 	char	**tab;
 	int		word;
@@ -60,7 +60,7 @@ char	**ft_split(char const *s, char c)
 	i = 0;
 	if (!s)
 		return (NULL);
-	tab = malloc(sizeof(*tab) * (nb_words(s, c) + 1));
+	tab = ft_malloc(sizeof(*tab) * (nb_words(s, c) + 1), &all->mem);
 	if (!tab)
 		return (NULL);
 	while (s[i] && !is_sep((char)s[i], c))
@@ -70,7 +70,7 @@ char	**ft_split(char const *s, char c)
 	{
 		if (is_sep((char)s[i], c) && (i == 0 || !is_sep((char)s[i - 1], c)))
 		{
-			tab[word] = put_in_tab(&s[i], c);
+			tab[word] = put_in_tab(&s[i], c, all);
 			word++;
 		}
 	}

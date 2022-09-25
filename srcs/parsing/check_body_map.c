@@ -6,58 +6,17 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 17:07:53 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/24 01:43:33 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/25 18:41:27 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-static int	width_map(t_all *all)
-{
-	int	i;
-	int	j;
-	int	width;
-	int	tab;
-
-	i = -1;
-	width = 0;
-	while (all->map->map[++i])
-	{
-		j = 0;
-		tab = 0;
-		while (all->map->map[i][j])
-			j++;
-		if (j > width)
-			width = j + tab;
-	}
-	return (width);
-}
-
-static void	start_end_line(int *start_line, int *end_line, char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && line[i] == ' ')
-		i++;
-	*start_line = i;
-	while (line[i] && line[i] != '\n')
-		i++;
-	if (line [i - 1])
-	{
-		i--;
-		while (line[i] && line[i] == ' ' && i != 0)
-			i--;
-		*end_line = i;
-	}
-}
-
-
 static int	check_first_and_last_line(t_all *all, int last_line)
 {
 	int	i;
 	int	j;
-	
+
 	i = -1;
 	while (all->map->map[++i])
 	{
@@ -85,7 +44,9 @@ static int	check_intermediate_line(t_all *all, int last_line)
 	i = 0;
 	while (all->map->map[++i] && i < last_line)
 	{
-		start_end_line(&start, &end, all->map->map[i]);
+		size_map(all, all->map->map[i]);
+		start = all->map->start_line;
+		end = all->map->end_line;
 		if (all->map->map[i][start] != '1' || all->map->map[i][end] != '1')
 			return (0);
 		while (all->map->map[i][start++] && start < end)
@@ -102,86 +63,40 @@ static int	check_intermediate_line(t_all *all, int last_line)
 	return (1);
 }
 
+static int	check_arround_space(char **arr, int i, int j)
+{
+	if (arr[i - 1][j])
+		if (arr[i - 1][j] == '*')
+			return (0);
+	if (arr[i + 1][j])
+		if (arr[i + 1][j] == '*')
+			return (0);
+	if (arr[i][j - 1])
+		if (arr[i][j - 1] == '*')
+			return (0);
+	if (arr[i][j + 1])
+		if (arr[i][j + 1] == '*')
+			return (0);
+	return (1);
+}
+
 static int	check_if_map_closed(t_all *all, int last_line)
 {
 	int		i;
 	int		j;
-	int		width;
-	char	**square;
-	int		start;
-	int		end;
-	
-	i = 0;
-	while (all->map->map[i] && i <= last_line)
-		i++;
-	square = ft_malloc((sizeof(char *) * (i + 1)), &all->mem);
-	if (!square)
-		return (0);
+	char	**arr;
+
 	i = -1;
-	width = width_map(all);
-	j = 0;
-	while (all->map->map[++i] && i <= last_line)
+	arr = create_square(all, last_line);
+	while (arr[++i])
 	{
-		square[j] = ft_malloc((sizeof(char) * (width + 1)), &all->mem);
-		if (!square[j])
-			return (0);
-		j++;
-	}
-	i = -1;
-	while (all->map->map[++i] && i <= last_line)
-	{
-		j = 0;
-		start_end_line(&start, &end, all->map->map[i]);
-		while (all->map->map[i][j] && j <= end)
-		{
-			square[i][j] = all->map->map[i][j];
-			j++;
-		}
-		if (j < width)
-		{
-			while (j < width - 1)
-			{
-				square[i][j] = ' ';
-				j++;
-			}
-			square[i][j] = '\n';
-			square[i][j + 1] = '\0';
-		}
-		else
-			square[i][j] = '\0';
-	}
-	square[last_line + 1] = NULL;
-	i = -1;
-	while (square[++i])
-	{
+		printf("%s", arr[i]);
 		j = -1;
-		while( square[i][++j] && square[i][j] != '\n')
+		while (arr[i][++j] && arr[i][j] != '\n')
 		{
-			if (square[i][j] == ' ')
-				square[i][j] = '*';
-		}
-	}
-	i = -1;
-	while (square[++i])
-	{
-		j = -1;
-		while (square[i][++j] && square[i][j] != '\n')
-		{
-			if (square[i][j] == '0')
-			{
-				if (square[i - 1][j])
-					if (square[i - 1][j] == '*')
-						return (0);
-				if (square[i + 1][j])
-					if (square[i + 1][j] == '*')
-						return (0);
-				if (square[i][j - 1])
-					if (square[i][j - 1] == '*')
-						return (0);
-				if (square[i][j + 1])
-					if (square[i][j + 1] == '*')
-						return (0);
-			}
+			if (arr[i][j] == '0')
+				if (!check_arround_space(arr, i, j))
+					return (0);
 		}
 	}
 	return (1);

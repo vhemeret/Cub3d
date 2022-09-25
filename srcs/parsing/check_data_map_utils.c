@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:13:23 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/24 01:20:16 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:33:15 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	put_rgb_data(char **arr, char **rgb, t_map *data)
 	{
 		data->f_r = atoi(rgb[0]);
 		data->f_g = atoi(rgb[1]);
-		data->f_b = atoi(rgb[2]);		
+		data->f_b = atoi(rgb[2]);
 	}
 	else if (arr[0][0] == 'C')
 	{
-		data->c_r = atoi(rgb[0]);		
-		data->c_g = atoi(rgb[1]);		
+		data->c_r = atoi(rgb[0]);
+		data->c_g = atoi(rgb[1]);
 		data->c_b = atoi(rgb[2]);
 	}
 }

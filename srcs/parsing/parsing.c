@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:38:02 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/24 01:39:58 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:31:51 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static void	init_data_map(t_map *data)
 	data->path_texture_so = NULL;
 	data->path_texture_we = NULL;
 	data->path_texture_ea = NULL;
-	data->f_r = 0;		
-	data->f_g = 0;		
+	data->f_r = 0;
+	data->f_g = 0;
 	data->f_b = 0;
-	data->c_r = 0;	
+	data->c_r = 0;
 	data->c_g = 0;
 	data->c_b = 0;
 	data->map_full = NULL;
