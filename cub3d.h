@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/19 11:10:09 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/09/25 18:44:46 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,24 @@
 # include <time.h>
 
 /*##################### STRUCTURES #####################*/
-
+typedef struct s_map
+{
+	char	*path_texture_no;
+	char	*path_texture_so;
+	char	*path_texture_we;
+	char	*path_texture_ea;
+	int		f_r;
+	int		f_g;
+	int		f_b;
+	int		c_r;
+	int		c_g;
+	int		c_b;
+	char	**map_full;
+	char	**map;
+	int		nb_line;
+	int		line;
+	int		column;
+}	t_map;
 typedef struct s_init
 {
 	void	*mlx;
@@ -36,13 +53,6 @@ typedef struct s_data_img {
 	int		line_l;
 	int		endian;
 }				t_data_img;
-
-typedef struct s_map
-{
-	char	**map;
-	int		line;
-	int		column;
-}				t_map;
 
 typedef struct s_player
 {
@@ -74,23 +84,6 @@ typedef struct s_data_engine
 	t_player		*player;
 }				t_data_engine;
 
-typedef struct s_map
-{
-	char	*path_texture_no;
-	char	*path_texture_so;
-	char	*path_texture_we;
-	char	*path_texture_ea;
-	int		f_r;
-	int		f_g;
-	int		f_b;
-	int		c_r;
-	int		c_g;
-	int		c_b;
-	char	**map_full;
-	char	**map;
-	int		nb_line;
-}	t_map;
-
 typedef struct s_pos
 {
 	int	x;
@@ -102,6 +95,30 @@ typedef struct s_all
 	t_map	*map;
 	t_pos	*pos;
 } t_all;
+
+typedef struct	s_info
+{
+	double posX;
+	double posY;
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY;
+	void	*mlx;
+	void	*win;
+	int		**buf;
+	int		texture[8][64 * 64];
+	double	moveSpeed;
+	double	rotSpeed;
+	int		re_buf;
+	t_data_img	*no;
+	t_data_img	*so;
+	t_data_img	*we;
+	t_data_img	*ea;
+	int		t_width;
+	t_data_img		*img;
+}				t_info;
+
 
 /*##################### PARSING #####################*/
 
@@ -123,6 +140,7 @@ int		get_position_player(char **map, t_pos *pos);
 
 int		get_position_player(char **map, t_pos *pos);
 
+
 /*##################### CLEANING #####################*/
 
 void	free_double_arr(char **arr);
@@ -137,7 +155,8 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	display_map(t_data_engine	*engine);
 void	put_pixel(t_data_engine *engine, void *img);
 void	my_mlx_pixel_put(t_data_engine *data, int x, int y, int color);
-unsigned int	get_color_pixel(t_data_engine *engine, void *img, int y, int x);
+unsigned int	get_color_pixel(void *img, t_data_img *el, int y, int x);
 void	init(t_data_engine	**engine);
-int	main_loop(t_data_engine *engine);
+int	main_loop(t_info *info);
+int	key_press(int key, t_info *info);
 #endif

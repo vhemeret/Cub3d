@@ -6,24 +6,12 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:29:50 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/09/13 17:01:16 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/09/24 04:31:52 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../../cub3d.h"
 
-unsigned int	get_color_pixel(t_data_engine *engine, void *img, int y, int x)
-{
-	char	*src;
-	int		color;
-
-	engine->tmp->addr = mlx_get_data_addr(img, &engine->tmp->bpp,
-			&engine->tmp->line_l, &engine->tmp->endian);
-	src = engine->tmp->addr + (y * engine->tmp->line_l + x
-			* (engine->tmp->bpp / 8));
-	color = *(unsigned int *)src;
-	return (color);
-}
 
 void	my_mlx_pixel_put(t_data_engine *data, int x, int y, int color)
 {
@@ -57,9 +45,9 @@ void	put_pixel(t_data_engine *engine, void *img)
 void	display_map(t_data_engine	*engine)
 {
 	engine->init->mlx = mlx_init();
-	engine->img->img = mlx_new_image(engine->init->mlx, 1920, 1080);
-	engine->img->addr = mlx_get_data_addr(engine->img->img, &engine->img->bpp,
-			&engine->img->line_l, &engine->img->endian);
+	//engine->img->img = mlx_new_image(engine->init->mlx, 1920, 1080);
+	//engine->img->addr = mlx_get_data_addr(engine->img->img, &engine->img->bpp,
+	//		&engine->img->line_l, &engine->img->endian);
 	engine->init->window = mlx_new_window(engine->init->mlx,  1920, 1080,
 			"CUB3D");
 	//put_pixel(engine, NULL);
