@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 17:07:53 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/25 18:41:27 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/27 00:09:23 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static int	check_intermediate_line(t_all *all, int last_line)
 			return (0);
 		while (all->map->map[i][start++] && start < end)
 		{
+			if (all->map->map[i][start] == ' ')
+				all->map->map[i][start] = '0';
 			if (all->map->map[i][start] != '1'
 			&& all->map->map[i][start] != '0'
 			&& all->map->map[i][start] != 'N'
@@ -114,6 +116,7 @@ int	check_body_map(t_all *all)
 	while (i != 0 && all->map->map[i][0] == '\n')
 		i--;
 	last_line = i;
+	// pour avoir la bonne taille de la map c' est ici
 	if (!check_first_and_last_line(all, last_line))
 		return (0);
 	if (!check_intermediate_line(all, last_line))

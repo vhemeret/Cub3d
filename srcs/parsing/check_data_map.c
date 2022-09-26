@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:12:53 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/25 20:11:35 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/26 23:41:49 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	check_value_rgb(char *line, t_all *all)
 	char	**arr;
 	char	**rgb;
 
+	rgb = NULL;
 	arr = ft_split(line, ' ', all);
 	if (arr[1])
 	{
@@ -106,10 +107,7 @@ int	check_data(char **map, t_face face, t_all *all)
 	char	*line;
 	
 	if (*map[0] == ' ')
-	{
-		printf("->%s", *map);
 		line = remove_wspace(*map, all);
-	}
 	else
 		line = *map;
 	if (ft_strncmp(line, "NO", 2) == 0 || ft_strncmp(line, "SO", 2) == 0)

@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 13:57:09 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/25 18:59:52 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/27 00:09:43 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static int parsing_data_map(char **map, int *i, t_all *all)
 {
 	t_face face;
-	int		j;
 
 	face.NO = 0;
 	face.SO = 0;
@@ -27,11 +26,7 @@ static int parsing_data_map(char **map, int *i, t_all *all)
 	*i = 0;
 	while (map[*i] && face.data != 6)
 	{
-		j = 0;
-		if (map[*i][j] == ' ')
-			while (map[*i][j] && map[*i][j] == ' ')
-				j++;
-		if (map[*i][j] && map[*i][j] != '\n')
+		if (map[*i][0] && map[*i][0] != '\n')
 		{
 			if (!check_data(&map[*i], face, all))
 				return (0);
@@ -66,6 +61,7 @@ static int parsing_body_map(char **map, t_all *all)
 int check_map(char **map, t_all *all)
 {
 	int i;
+	int j;
 
 	i = 0;
 	if (!parsing_data_map(map, &i, all))
@@ -73,8 +69,15 @@ int check_map(char **map, t_all *all)
 		printf("Error: data parsing\n");
 		return (0);
 	}
-	while (map[i] && map[i][0] == '\n')
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j] == ' ' && map[i][j] != '\n')
+			j++;
+		if (map[i][j] && map[i][j] != ' ' && map[i][j] != '\n')
+			break ;
 		i++;
+	}
 	if (!parsing_body_map(&map[i], all))
 	{
 		printf("Error: map invalid\n");
