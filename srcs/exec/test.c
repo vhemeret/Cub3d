@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:55:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/10/04 20:08:48 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/10/04 21:29:41 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../../cub3d.h"
+#include <math.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#define X_EVENT_KEY_PRESS	2
+#define X_EVENT_KEY_EXIT	17
+#define mapWidth 24
+#define mapHeight 24
+#define width 1920
+#define height 1080
 
 #define X_EVENT_KEY_PRESS	2
 #define X_EVENT_KEY_EXIT	17
