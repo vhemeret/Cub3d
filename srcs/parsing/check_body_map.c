@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 17:07:53 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/27 20:48:03 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/27 21:28:19 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ static int	check_content_map(t_all *all)
 
 static int	check_arround_space(t_all *all, char **arr, int i, int j)
 {
-	if (i == 0 || i == all->map->last_line)
+	size_map(all, arr[i]);
+	if (i == 0 || i == all->map->last_line || j == 0 || j == all->map->end_line)
 		return (0);
 	if (arr[i - 1][j])
 		if (arr[i - 1][j] == '*')
@@ -93,7 +94,8 @@ static int	check_if_map_closed(t_all *all, int last_line)
 	while (arr[++i])
 	{
 		j = -1;
-		while (arr[i][++j] && arr[i][j] != '\n')
+		printf("%s", arr[i]);
+ 		while (arr[i][++j] && arr[i][j] != '\n')
 		{
 			if (arr[i][j] == '0' || arr[i][j] == 'N'
 				|| arr[i][j] == 'S' || arr[i][j] == 'E'
