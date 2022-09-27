@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 17:07:53 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/27 21:28:19 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/27 21:32:54 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,7 @@ static int	check_if_map_closed(t_all *all, int last_line)
 	while (arr[++i])
 	{
 		j = -1;
-		printf("%s", arr[i]);
- 		while (arr[i][++j] && arr[i][j] != '\n')
+		while (arr[i][++j] && arr[i][j] != '\n')
 		{
 			if (arr[i][j] == '0' || arr[i][j] == 'N'
 				|| arr[i][j] == 'S' || arr[i][j] == 'E'
