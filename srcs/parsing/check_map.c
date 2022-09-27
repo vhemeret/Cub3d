@@ -6,15 +6,15 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 13:57:09 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/27 00:09:43 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/27 16:02:07 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-static int parsing_data_map(char **map, int *i, t_all *all)
+static int	parsing_data_map(char **map, int *i, t_all *all)
 {
-	t_face face;
+	t_face	face;
 
 	face.NO = 0;
 	face.SO = 0;
@@ -34,23 +34,25 @@ static int parsing_data_map(char **map, int *i, t_all *all)
 		}
 		(*i)++;
 	}
-	if (face.data != 6 && (face.NO != 1 || face.SO != 1 || face.WE != 1 || face.EA != 1) && (face.F != 1 || face.C != 1))
+	if (face.data != 6
+		&& (face.NO != 1 || face.SO != 1 || face.WE != 1 || face.EA != 1)
+		&& (face.F != 1 || face.C != 1))
 		return (0);
 	return (1);
 }
 
-static int parsing_body_map(char **map, t_all *all)
+static int	parsing_body_map(char **map, t_all *all)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (map[i])
+	while (i <= all->map->last_line)
 		i++;
 	all->map->map = ft_malloc((sizeof(char *) * (i + 1)), &all->mem);
 	if (!all->map->map)
 		return (0);
 	i = -1;
-	while (map[++i])
+	while (map[++i] && i <= all->map->last_line)
 		all->map->map[i] = map[i];
 	all->map->map[i] = NULL;
 	if (!check_body_map(all))
@@ -58,10 +60,9 @@ static int parsing_body_map(char **map, t_all *all)
 	return (1);
 }
 
-int check_map(char **map, t_all *all)
+int	check_map(char **map, t_all *all)
 {
-	int i;
-	int j;
+	int	i;
 
 	i = 0;
 	if (!parsing_data_map(map, &i, all))
@@ -69,15 +70,8 @@ int check_map(char **map, t_all *all)
 		printf("Error: data parsing\n");
 		return (0);
 	}
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j] == ' ' && map[i][j] != '\n')
-			j++;
-		if (map[i][j] && map[i][j] != ' ' && map[i][j] != '\n')
-			break ;
-		i++;
-	}
+	i += first_line(&map[i], all);
+	last_line(&map[i], all);
 	if (!parsing_body_map(&map[i], all))
 	{
 		printf("Error: map invalid\n");

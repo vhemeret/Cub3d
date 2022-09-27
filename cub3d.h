@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/25 18:38:17 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/27 15:42:40 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_map
 	int		c_g;
 	int		c_b;
 	int		width;
+	int		first_line;
+	int		last_line;
 	int		start_line;
 	int		end_line;
 	char	**map_full;
@@ -107,5 +109,7 @@ char	**ft_split(char const *s, char c, t_all *all);
 char	*remove_wspace(char *str, t_all *all);
 int		ft_atoi(const char *nptr);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		first_line(char **map, t_all *all);
+void	last_line(char **map, t_all *all);
 
 #endif

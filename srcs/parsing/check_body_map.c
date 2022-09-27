@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 17:07:53 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/27 00:09:23 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/27 15:59:08 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,16 @@ static int	check_intermediate_line(t_all *all, int last_line)
 {
 	int	i;
 	int	start;
-	int	end;
 
 	i = 0;
 	while (all->map->map[++i] && i < last_line)
 	{
 		size_map(all, all->map->map[i]);
 		start = all->map->start_line;
-		end = all->map->end_line;
-		if (all->map->map[i][start] != '1' || all->map->map[i][end] != '1')
+		if (all->map->map[i][start] != '1'
+			|| all->map->map[i][all->map->end_line] != '1')
 			return (0);
-		while (all->map->map[i][start++] && start < end)
+		while (all->map->map[i][start++] && start < all->map->end_line)
 		{
 			if (all->map->map[i][start] == ' ')
 				all->map->map[i][start] = '0';
@@ -92,7 +91,6 @@ static int	check_if_map_closed(t_all *all, int last_line)
 	arr = create_square(all, last_line);
 	while (arr[++i])
 	{
-		printf("%s", arr[i]);
 		j = -1;
 		while (arr[i][++j] && arr[i][j] != '\n')
 		{
@@ -106,22 +104,11 @@ static int	check_if_map_closed(t_all *all, int last_line)
 
 int	check_body_map(t_all *all)
 {
-	int	i;
-	int	last_line;
-
-	i = 0;
-	while (all->map->map[i])
-		i++;
-	i -= 1;
-	while (i != 0 && all->map->map[i][0] == '\n')
-		i--;
-	last_line = i;
-	// pour avoir la bonne taille de la map c' est ici
-	if (!check_first_and_last_line(all, last_line))
+	if (!check_first_and_last_line(all, all->map->last_line))
 		return (0);
-	if (!check_intermediate_line(all, last_line))
+	if (!check_intermediate_line(all, all->map->last_line))
 		return (0);
-	if (!check_if_map_closed(all, last_line))
+	if (!check_if_map_closed(all, all->map->last_line))
 		return (0);
 	return (1);
 }

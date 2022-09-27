@@ -1,15 +1,10 @@
 NO ./map/test_texture/path_to_the_north_texture
 SO ./map/test_texture/path_to_the_south_texture
 WE ./map/test_texture/path_to_the_west_texture
- EA ./map/test_texture/path_to_the_east_texture
+EA ./map/test_texture/path_to_the_east_texture
 
 F 255,0,0
 C 225,30,0
-
-
-
-
-
 
         11111111111111111111111111111111
         1111111111111111111111111
@@ -28,7 +23,7 @@ C 225,30,0
 
 
 
-
+  
 
 
 

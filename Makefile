@@ -6,7 +6,7 @@
 #    By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 04:35:45 by vahemere          #+#    #+#              #
-#    Updated: 2022/09/25 18:22:33 by vahemere         ###   ########.fr        #
+#    Updated: 2022/09/27 16:06:06 by vahemere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ check_fd.c get_map.c parsing.c check_map.c check_data_map.c check_data_map_utils
 get_next_line_utils.c get_next_line.c \
 get_position_player.c \
 free_double_arr.c mem.c \
-ft_split.c remove_wspace.c ft_atoi.c ft_strncmp.c \
+ft_split.c remove_wspace.c ft_atoi.c ft_strncmp.c line.c \
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.c=%.o))
 

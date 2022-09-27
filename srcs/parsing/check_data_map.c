@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:12:53 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/26 23:41:49 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/27 16:00:15 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	check_texture(char *map, t_face face, t_all *all)
 int	check_data(char **map, t_face face, t_all *all)
 {
 	char	*line;
-	
+
 	if (*map[0] == ' ')
 		line = remove_wspace(*map, all);
 	else

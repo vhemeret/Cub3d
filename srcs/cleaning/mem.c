@@ -6,16 +6,31 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 15:52:16 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/24 01:03:36 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/27 16:05:51 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
+static void	add_back_node(void *addr, t_mem *tmp)
+{
+	t_mem	*save;
+
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = malloc(sizeof(t_mem));
+	if (!(tmp->next))
+		return ;
+	save = tmp;
+	tmp = tmp->next;
+	tmp->addr = addr;
+	tmp->next = NULL;
+	tmp->back = save;
+}
+
 static int	add_node(void *addr, t_mem **mem)
 {
 	t_mem	*tmp;
-	t_mem	*save;
 
 	if (!(*mem))
 	{
@@ -29,16 +44,7 @@ static int	add_node(void *addr, t_mem **mem)
 	}
 	else
 		tmp = *mem;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = malloc(sizeof(t_mem));
-	if (!(tmp->next))
-		return (0);
-	save = tmp;
-	tmp = tmp->next;
-	tmp->addr = addr;
-	tmp->next = NULL;
-	tmp->back = save;
+	add_back_node(addr, tmp);
 	return (1);
 }
 
@@ -79,7 +85,7 @@ void	ft_free(void *addr, t_mem **mem)
 
 void	free_all(t_mem **mem)
 {
-	t_mem *tmp;
+	t_mem	*tmp;
 
 	tmp = *mem;
 	if (tmp)
