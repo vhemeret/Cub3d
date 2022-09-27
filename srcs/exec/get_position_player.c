@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 12:05:21 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/15 16:02:53 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/27 20:48:37 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	get_position_player(char **map, t_pos *pos)
 				pos->y = i;
 			}
 		}
-			
 	}
 	if (pos->x == -1 && pos->y == -1)
 		return (0);

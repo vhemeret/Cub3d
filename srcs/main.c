@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:28:12 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/24 01:42:46 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/27 20:48:57 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int ac, char **av)
 	}
 	else
 		printf("Error\nThe number of argument are invalid.\n");
-	free_all(&all->mem);		
+	free_all(&all->mem);
 	free(all);
 	return (0);
 }
