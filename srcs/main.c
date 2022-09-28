@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:28:12 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/27 20:48:57 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/28 18:58:27 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int ac, char **av)
 			return (0);
 		}
 		// else
-		// 	manage_process(av,map);
+			// manage_process(av,map);
 	}
 	else
 		printf("Error\nThe number of argument are invalid.\n");

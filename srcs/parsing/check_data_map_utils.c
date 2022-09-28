@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:13:23 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/25 17:33:15 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/28 19:28:39 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,23 @@ int	check_path_texture(char *line, t_all *all)
 {
 	int			fd;
 	char		*path;
+	int			i;
 
+	i = 0;
 	path = remove_wspace(line, all);
+	while (path[i])
+		i++;
+	if (path[--i] && path[i - 3])
+	{
+		if (path[i] != 'm' && path[i] != 'M')
+			return (0);
+		if (path[i - 1] != 'p' && path[i - 2] != 'P')
+			return (0);
+		if (path[i - 2] != 'x' && path[i - 3] != 'X' && path[i - 3] != '.')
+			return (0);
+	}
+	else
+		return (0);
 	fd = open(path, O_RDONLY);
 	path = NULL;
 	if (fd == -1)
