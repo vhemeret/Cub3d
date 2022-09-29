@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/25 18:44:46 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/09/29 11:22:38 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_init
 	void	*mlx;
 	void	*window;
 }			t_init;
+
 typedef struct s_data_img {
 	void	*img;
 	char	*addr;
@@ -53,7 +54,17 @@ typedef struct s_data_img {
 	int		line_l;
 	int		endian;
 }				t_data_img;
+typedef struct	s_img
+{
+	void	*img;
+	int		*data;
 
+	int		size_l;
+	int		bpp;
+	int		endian;
+	int		img_width;
+	int		img_height;
+}				t_img;
 typedef struct s_player
 {
 	int	x;
@@ -106,8 +117,8 @@ typedef struct	s_info
 	double planeY;
 	void	*mlx;
 	void	*win;
-	int		**buf;
-	int		texture[8][64 * 64];
+	int		buf[1080][1920];
+	int		**texture;
 	double	moveSpeed;
 	double	rotSpeed;
 	int		re_buf;
@@ -116,7 +127,7 @@ typedef struct	s_info
 	t_data_img	*we;
 	t_data_img	*ea;
 	int		t_width;
-	t_data_img		*img;
+	t_img		img;
 }				t_info;
 
 
@@ -139,6 +150,7 @@ int		get_position_player(char **map, t_pos *pos);
 /*##################### DISPLAY #####################*/
 
 int		get_position_player(char **map, t_pos *pos);
+void	load_image(t_info *info, int *texture, char *path, t_img *img);
 
 
 /*##################### CLEANING #####################*/

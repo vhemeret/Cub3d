@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:28:12 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/24 04:37:44 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/09/28 19:41:03 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,49 +69,68 @@ int	key_hook(int keycode, t_data_engine	*engine)
 	return (0);
 }*/
 
+void	load_texture(t_info *info)
+{
+	t_img	img;
+
+	load_image(info, info->texture[0], "./map/test_texture/2.xpm", &img);
+	load_image(info, info->texture[1], "./map/test_texture/2.xpm", &img);
+	load_image(info, info->texture[2], "./map/test_texture/2.xpm", &img);
+	load_image(info, info->texture[3], "./map/test_texture/2.xpm", &img);
+	load_image(info, info->texture[4], "./map/test_texture/2.xpm", &img);
+	load_image(info, info->texture[5], "./map/test_texture/2.xpm", &img);
+	load_image(info, info->texture[6], "./map/test_texture/2.xpm", &img);
+	load_image(info, info->texture[7], "./map/test_texture/2.xpm", &img);
+}
+
 int	main(void)
 {
 	t_info info;
+	info.mlx = mlx_init();
 
-	info.posX = 12;
-	info.posY = 5;
-	info.dirX = -1;
-	info.dirY = 0;
-	info.planeX = 0;
+	info.posX = 22.0;
+	info.posY = 11.5;
+	info.dirX = -1.0;
+	info.dirY = 0.0;
+	info.planeX = 0.0;
 	info.planeY = 0.66;
+	info.re_buf = 0;
+
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			info.buf[i][j] = 0;
+		}
+	}
+
+	if (!(info.texture = (int **)malloc(sizeof(int *) * 8)))
+		return (-1);
+	for (int i = 0; i < 8; i++)
+	{
+		if (!(info.texture[i] = (int *)malloc(sizeof(int) * (64 * 64))))
+			return (-1);
+	}
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 64 * 64; j++)
+		{
+			info.texture[i][j] = 0;
+		}
+	}
+
+	load_texture(&info);
+
 	info.moveSpeed = 0.05;
 	info.rotSpeed = 0.05;
 	
-	info.img = malloc(sizeof(t_data_img));
-	info.mlx = mlx_init();
-	info.t_width = 64;
-	info.img->img = mlx_new_image(info.mlx, width, height);
-	info.img->addr = mlx_get_data_addr(info.img->img, &info.img->bpp,
-			&info.img->line_l, &info.img->endian);
 	info.win = mlx_new_window(info.mlx, width, height, "mlx");
-	info.no = malloc(sizeof(t_data_img));
-	info.so = malloc(sizeof(t_data_img));
-	info.we = malloc(sizeof(t_data_img));
-	info.ea = malloc(sizeof(t_data_img));
 
-	info.no->img = mlx_xpm_file_to_image(info.mlx, "./map/test_texture/1.xpm",
-			&info.t_width, &info.t_width);
-	info.no->addr = mlx_get_data_addr(info.no->img, &info.no->bpp,
-			&info.no->line_l, &info.no->endian);
-	info.so->img = mlx_xpm_file_to_image(info.mlx, "./map/test_texture/2.xpm",
-			&info.t_width, &info.t_width);
-	info.so->addr = mlx_get_data_addr(info.so->img, &info.so->bpp,
-			&info.so->line_l, &info.so->endian);
-	info.we->img = mlx_xpm_file_to_image(info.mlx, "./map/test_texture/3.xpm",
-			&info.t_width, &info.t_width);
-	info.we->addr = mlx_get_data_addr(info.we->img, &info.we->bpp,
-			&info.we->line_l, &info.we->endian);
-	info.ea->img = mlx_xpm_file_to_image(info.mlx, "./map/test_texture/4.xpm",
-			&info.t_width, &info.t_width);
-	info.ea->addr = mlx_get_data_addr(info.ea->img, &info.ea->bpp,
-			&info.ea->line_l, &info.ea->endian);
+	info.img.img = mlx_new_image(info.mlx, width, height);
+	info.img.data = (int *)mlx_get_data_addr(info.img.img, &info.img.bpp, &info.img.size_l, &info.img.endian);
+
+	mlx_loop_hook(info.mlx, &main_loop, &info);
 	mlx_hook(info.win, 17, 0, mlx_loop_end, info.mlx);
 	mlx_hook(info.win, 2, (1L << 0), key_press, &info);
-	mlx_loop_hook(info.mlx, &main_loop, &info);
 	mlx_loop(info.mlx);
 }

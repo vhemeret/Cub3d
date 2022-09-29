@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:55:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/09/25 18:45:10 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/09/29 11:24:20 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,46 +48,21 @@ int	worldMap[24][24] = {
 							{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 							{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 						};
-void	my_put(t_info *info, int x, int y, int color)
+
+void	draw(t_info *info)
 {
-	char	*dst;
-
-	dst = info->img->addr + (y * info->img->line_l + x * (info->img->bpp / 8));
-	*(unsigned int *)dst = color;
-}
-unsigned int	get_color_pixel( void *img, t_data_img *el, int y, int x)
-{
-	char	*src;
-	int		color;
-
-	el->addr = mlx_get_data_addr(img, &el->bpp,
-			&el->line_l, &el->endian);
-	src = el->addr + (y * el->line_l + x
-			* (el->bpp / 8));
-	color = *(unsigned int *)src;
-	return (color);
-}
-
-void	verLine(t_info *info, int x, int y1, int y2, int color)
-{
-	int	y;
-
-	y = y1;
-	while (y <= y2)
+	bzero(info->img.data, 1080*1920);
+	mlx_destroy_image(info->mlx, info->img.img);
+	info->img.img = mlx_new_image(info->mlx, width, height);
+	info->img.data = (int *)mlx_get_data_addr(info->img.img, &info->img.bpp, &info->img.size_l, &info->img.endian);
+	for (int y = 0; y < height; y++)
 	{
-		if (color == 1)
-			color = get_color_pixel( info->no->img, info->no, y, x);
-		else if (color == 2)
-			color = get_color_pixel( info->so->img, info->so, y, x);
-		else if (color == 3)
-			color = get_color_pixel( info->we->img, info->we, y, x);
-		else if (color == 4)
-			color = get_color_pixel( info->ea->img, info->ea, y, x);
-		else
-			color = 0xFFFF00;
-		my_put(info, x, y, color);
-		y++;
+		for (int x = 0; x < width; x++)
+		{
+			info->img.data[y * width + x] = info->buf[y][x];
+		}
 	}
+	mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0);
 }
 
 void	calc(t_info *info)
@@ -198,6 +173,17 @@ void	calc(t_info *info)
 		double step = 1.0 * texHeight / lineHeight;
 		// Starting texture coordinate
 		double texPos = (drawStart - height / 2 + lineHeight / 2) * step;
+		
+		int baba = -1;
+		while (++baba < drawStart)
+		{
+			info->buf[baba][x] = 0x3495eb;
+		}
+		baba = drawEnd - 1;
+		while (++baba < 1080)
+		{
+			info->buf[baba][x] = 0XFFCC66;
+		}
 		for (int y = drawStart; y < drawEnd; y++)
 		{
 			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
@@ -214,16 +200,24 @@ void	calc(t_info *info)
 	}
 }
 
+void	load_image(t_info *info, int *texture, char *path, t_img *img)
+{
+	img->img = mlx_xpm_file_to_image(info->mlx, path, &img->img_width, &img->img_height);
+	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, &img->endian);
+	for (int y = 0; y < img->img_height; y++)
+	{
+		for (int x = 0; x < img->img_width; x++)
+		{
+			texture[img->img_width * y + x] = img->data[img->img_width * y + x];
+		}
+	}
+	mlx_destroy_image(info->mlx, img->img);
+}
+
 int	main_loop(t_info *info)
 {
-	if (info->img->img)
-		mlx_destroy_image(info->mlx, info->img->img);
-	info->img->img = mlx_new_image(info->mlx, width, height);
-	info->img->addr = mlx_get_data_addr(info->img->img, &info->img->bpp,
-		&info->img->line_l, &info->img->endian);
 	calc(info);
-	mlx_put_image_to_window(info->mlx, info->win, info->img->img, 0, 0);
-
+	draw(info);
 	return (0);
 }
 
