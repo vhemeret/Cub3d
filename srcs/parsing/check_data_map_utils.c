@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:13:23 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/28 19:28:39 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:10:56 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,9 @@ void	put_path_data(char **arr, t_all *all)
 void	put_rgb_data(char **arr, char **rgb, t_map *data)
 {
 	if (arr[0][0] == 'F')
-	{
-		data->f_r = atoi(rgb[0]);
-		data->f_g = atoi(rgb[1]);
-		data->f_b = atoi(rgb[2]);
-	}
+		data->f_rgb = 65536 * atoi(rgb[0]) + 256 * atoi(rgb[1]) + atoi(rgb[2]);
 	else if (arr[0][0] == 'C')
-	{
-		data->c_r = atoi(rgb[0]);
-		data->c_g = atoi(rgb[1]);
-		data->c_b = atoi(rgb[2]);
-	}
+		data->c_rgb = 65536 * atoi(rgb[0]) + 256 * atoi(rgb[1]) + atoi(rgb[2]);
 }
 
 int	wich_data(char *data, t_face face)
