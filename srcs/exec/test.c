@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:55:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/09/29 11:24:20 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:06:47 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void	calc(t_info *info)
 		int baba = -1;
 		while (++baba < drawStart)
 		{
-			info->buf[baba][x] = 0x3495eb;
+			info->buf[baba][x] = (65536 * 52 + 256 * 149 + 235);
 		}
 		baba = drawEnd - 1;
 		while (++baba < 1080)
@@ -238,8 +238,24 @@ int	key_press(int key, t_info *info)
 		if (!worldMap[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
 			info->posY -= info->dirY * info->moveSpeed;
 	}
-	//rotate to the right
+	//move right
 	if (key == 100)
+	{
+		if (!worldMap[(int)(info->posX + info->dirX * info->moveSpeed)][(int)(info->posY)])
+			info->posX += info->dirX * info->moveSpeed;
+		if (!worldMap[(int)(info->posX)][(int)(info->posY + info->dirY * info->moveSpeed)])
+			info->posY += info->dirY * info->moveSpeed;
+	}
+	//move left
+	if (key == 97)
+	{
+		if (!worldMap[(int)(info->posX - info->dirX * info->moveSpeed)][(int)(info->posY)])
+			info->posX -= info->dirX * info->moveSpeed;
+		if (!worldMap[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
+			info->posY -= info->dirY * info->moveSpeed;
+	}
+	//rotate to the right
+	if (key == 65363)//100
 	{
 		//both camera direction and camera plane must be rotated
 		double oldDirX = info->dirX;
@@ -250,7 +266,7 @@ int	key_press(int key, t_info *info)
 		info->planeY = oldPlaneX * sin(-info->rotSpeed) + info->planeY * cos(-info->rotSpeed);
 	}
 	//rotate to the left
-	if (key == 97)
+	if (key == 65361)//97
 	{
 		//both camera direction and camera plane must be rotated
 		double oldDirX = info->dirX;

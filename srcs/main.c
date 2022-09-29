@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:28:12 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/28 19:41:03 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/09/29 11:44:28 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void	load_texture(t_info *info)
 {
 	t_img	img;
 
-	load_image(info, info->texture[0], "./map/test_texture/2.xpm", &img);
+	load_image(info, info->texture[0], "./map/test_texture/3.xpm", &img);
 	load_image(info, info->texture[1], "./map/test_texture/2.xpm", &img);
-	load_image(info, info->texture[2], "./map/test_texture/2.xpm", &img);
+	load_image(info, info->texture[2], "./map/test_texture/3.xpm", &img);
 	load_image(info, info->texture[3], "./map/test_texture/2.xpm", &img);
 	load_image(info, info->texture[4], "./map/test_texture/2.xpm", &img);
 	load_image(info, info->texture[5], "./map/test_texture/2.xpm", &img);
@@ -121,7 +121,7 @@ int	main(void)
 
 	load_texture(&info);
 
-	info.moveSpeed = 0.05;
+	info.moveSpeed = 0.1;
 	info.rotSpeed = 0.05;
 	
 	info.win = mlx_new_window(info.mlx, width, height, "mlx");
