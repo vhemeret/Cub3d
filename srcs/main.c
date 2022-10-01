@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:28:12 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/29 11:44:28 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/01 03:11:08 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,6 @@
 #define mapHeight 24
 #define width 1920
 #define height 1080
-
-
-int	key_hook(int keycode, t_data_engine	*engine)
-{
-	if (keycode == 65307)
-	{
-		mlx_loop_end(engine->init->mlx);
-		return (0);
-	}
-	else if (keycode == 65364 && engine->player->vue_y + 100 <= 1080)
-		engine->player->vue_y += 100;
-	else if (keycode == 65362 && engine->player->vue_y - 100 <= 0)
-		engine->player->vue_y -= 100;
-	put_pixel(engine, NULL);
-	mlx_put_image_to_window(engine->init->mlx, engine->init->window,
-		engine->img->img, 0, 0);
-	return (0);
-}
 
 /*int	main(int ac, char **av)
 {
@@ -73,10 +55,10 @@ void	load_texture(t_info *info)
 {
 	t_img	img;
 
-	load_image(info, info->texture[0], "./map/test_texture/3.xpm", &img);
+	load_image(info, info->texture[0], "./map/test_texture/1.xpm", &img);
 	load_image(info, info->texture[1], "./map/test_texture/2.xpm", &img);
 	load_image(info, info->texture[2], "./map/test_texture/3.xpm", &img);
-	load_image(info, info->texture[3], "./map/test_texture/2.xpm", &img);
+	load_image(info, info->texture[3], "./map/test_texture/4.xpm", &img);
 	load_image(info, info->texture[4], "./map/test_texture/2.xpm", &img);
 	load_image(info, info->texture[5], "./map/test_texture/2.xpm", &img);
 	load_image(info, info->texture[6], "./map/test_texture/2.xpm", &img);

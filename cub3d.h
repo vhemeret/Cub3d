@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/29 11:22:38 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/01 04:03:24 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ typedef struct	s_info
 	void	*win;
 	int		buf[1080][1920];
 	int		**texture;
+	int		texWidth;
+	int		texHeight;
 	double	moveSpeed;
 	double	rotSpeed;
 	int		re_buf;

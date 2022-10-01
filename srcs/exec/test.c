@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:55:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/09/29 18:06:47 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/01 04:05:39 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ int	worldMap[24][24] = {
 
 void	draw(t_info *info)
 {
-	bzero(info->img.data, 1080*1920);
+	//bzero(info->img.data, 1080*1920);
 	mlx_destroy_image(info->mlx, info->img.img);
 	info->img.img = mlx_new_image(info->mlx, width, height);
-	info->img.data = (int *)mlx_get_data_addr(info->img.img, &info->img.bpp, &info->img.size_l, &info->img.endian);
+	//info->img.data = (int *)mlx_get_data_addr(info->img.img, &info->img.bpp, &info->img.size_l, &info->img.endian);
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
@@ -151,9 +151,18 @@ void	calc(t_info *info)
 			drawEnd = height - 1;
 
 		// texturing calculations
-		int texNum = worldMap[mapX][mapY];
-		int	texWidth = 64;
-		int	texHeight = 64;
+		int texNum = 0;
+		if (side == 0 && mapX - info->posX >= 0)
+			texNum = 0;
+		else if (side == 0 && mapX - info->posX < 0)
+			texNum = 1;
+		else if (side == 1 && mapY - info->posY < 0)
+			texNum = 2;
+		else if (side == 1 && mapY - info->posY >= 0)
+			texNum = 3;
+		
+		info->texWidth = 64;
+		info->texHeight = 64;
 		// calculate value of wallX
 		double wallX;
 		if (side == 0)
@@ -163,14 +172,14 @@ void	calc(t_info *info)
 		wallX -= floor(wallX);
 
 		// x coordinate on the texture
-		int texX = (int)(wallX * (double)texWidth);
+		int texX = (int)(wallX * (double)info->texWidth);
 		if (side == 0 && rayDirX > 0)
-			texX = texWidth - texX - 1;
+			texX = info->texWidth - texX - 1;
 		if (side == 1 && rayDirY < 0)
-			texX = texWidth - texX - 1;
+			texX = info->texWidth - texX - 1;
 
 		// How much to increase the texture coordinate perscreen pixel
-		double step = 1.0 * texHeight / lineHeight;
+		double step = 1.0 * info->texHeight / lineHeight;
 		// Starting texture coordinate
 		double texPos = (drawStart - height / 2 + lineHeight / 2) * step;
 		
@@ -187,9 +196,9 @@ void	calc(t_info *info)
 		for (int y = drawStart; y < drawEnd; y++)
 		{
 			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-			int texY = (int)texPos & (texHeight - 1);
+			int texY = (int)texPos & (info->texHeight - 1);
 			texPos += step;
-			int color = info->texture[texNum][texHeight * texY + texX];
+			int color = info->texture[texNum][info->texHeight * texY + texX];
 			// make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
 			if (side == 1)
 				color = (color >> 1) & 8355711;
@@ -199,6 +208,11 @@ void	calc(t_info *info)
 		x++;
 	}
 }
+
+/*void	draw_color_texture(t_info *info, int drawStart, int drawEnd, int x)
+{
+	
+}*/
 
 void	load_image(t_info *info, int *texture, char *path, t_img *img)
 {
@@ -238,21 +252,21 @@ int	key_press(int key, t_info *info)
 		if (!worldMap[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
 			info->posY -= info->dirY * info->moveSpeed;
 	}
-	//move right
-	if (key == 100)
-	{
-		if (!worldMap[(int)(info->posX + info->dirX * info->moveSpeed)][(int)(info->posY)])
-			info->posX += info->dirX * info->moveSpeed;
-		if (!worldMap[(int)(info->posX)][(int)(info->posY + info->dirY * info->moveSpeed)])
-			info->posY += info->dirY * info->moveSpeed;
-	}
 	//move left
 	if (key == 97)
 	{
-		if (!worldMap[(int)(info->posX - info->dirX * info->moveSpeed)][(int)(info->posY)])
-			info->posX -= info->dirX * info->moveSpeed;
-		if (!worldMap[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
-			info->posY -= info->dirY * info->moveSpeed;
+		if (!worldMap[(int)(info->posX - info->dirY * info->moveSpeed)][(int)(info->posY)])
+			info->posX -= info->dirY * info->moveSpeed;
+		if (!worldMap[(int)(info->posX)][(int)(info->posY + info->dirX * info->moveSpeed)])
+			info->posY += info->dirX * info->moveSpeed;
+	}
+	//move right
+	if (key == 100)
+	{
+		if (!worldMap[(int)(info->posX - info->dirY * info->moveSpeed)][(int)(info->posY)])
+			info->posX += info->dirY * info->moveSpeed;
+		if (!worldMap[(int)(info->posX)][(int)(info->posY - info->dirX * info->moveSpeed)])
+			info->posY -= info->dirX * info->moveSpeed;
 	}
 	//rotate to the right
 	if (key == 65363)//100
