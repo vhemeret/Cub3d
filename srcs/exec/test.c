@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:55:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/10/01 04:05:39 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/02 04:36:07 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,12 +186,12 @@ void	calc(t_info *info)
 		int baba = -1;
 		while (++baba < drawStart)
 		{
-			info->buf[baba][x] = (65536 * 52 + 256 * 149 + 235);
+			info->buf[baba][x] = 0X7EC4E0;
 		}
 		baba = drawEnd - 1;
 		while (++baba < 1080)
 		{
-			info->buf[baba][x] = 0XFFCC66;
+			info->buf[baba][x] = 0X899696;
 		}
 		for (int y = drawStart; y < drawEnd; y++)
 		{

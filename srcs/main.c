@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:28:12 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/01 03:11:08 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/02 04:30:27 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,15 @@ void	load_texture(t_info *info)
 {
 	t_img	img;
 
-	load_image(info, info->texture[0], "./map/test_texture/1.xpm", &img);
-	load_image(info, info->texture[1], "./map/test_texture/2.xpm", &img);
-	load_image(info, info->texture[2], "./map/test_texture/3.xpm", &img);
-	load_image(info, info->texture[3], "./map/test_texture/4.xpm", &img);
-	load_image(info, info->texture[4], "./map/test_texture/2.xpm", &img);
-	load_image(info, info->texture[5], "./map/test_texture/2.xpm", &img);
-	load_image(info, info->texture[6], "./map/test_texture/2.xpm", &img);
-	load_image(info, info->texture[7], "./map/test_texture/2.xpm", &img);
+	load_image(info, info->texture[0], "./textures/stone1.xpm", &img);
+	load_image(info, info->texture[1], "./textures/stone2.xpm", &img);
+	load_image(info, info->texture[2], "./textures/stone3.xpm", &img);
+	load_image(info, info->texture[3], "./textures/stone4.xpm", &img);
+	load_image(info, info->texture[4], "./textures/stone1.xpm", &img);
+	load_image(info, info->texture[5], "./textures/stone2.xpm", &img);
+	load_image(info, info->texture[6], "./textures/stone3.xpm", &img);
+	load_image(info, info->texture[7], "./textures/stone4.xpm", &img);
+
 }
 
 int	main(void)
