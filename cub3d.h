@@ -6,12 +6,13 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/01 04:03:24 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/03 16:05:16 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
 
 /*##################### LIBRARIES #####################*/
 
@@ -21,6 +22,8 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <time.h>
+# include <stdlib.h>
+# include <string.h>
 
 /*##################### STRUCTURES #####################*/
 typedef struct s_map
@@ -107,6 +110,16 @@ typedef struct s_all
 	t_pos	*pos;
 } t_all;
 
+typedef	struct s_calc_utils
+{
+	double rayDirX;
+	double rayDirY;
+	double sideDistX;
+	double sideDistY;
+	double deltaDistX;
+	double deltaDistY;
+}	t_calc_utils;
+
 typedef struct	s_info
 {
 	double posX;
@@ -121,15 +134,17 @@ typedef struct	s_info
 	int		**texture;
 	int		texWidth;
 	int		texHeight;
+	int		lineHeight;
+	int		drawStart;
+	int		drawEnd;
+	int 	side;
+	int		texX;
 	double	moveSpeed;
 	double	rotSpeed;
 	int		re_buf;
-	t_data_img	*no;
-	t_data_img	*so;
-	t_data_img	*we;
-	t_data_img	*ea;
 	int		t_width;
 	t_img		img;
+	t_calc_utils	utils;
 }				t_info;
 
 

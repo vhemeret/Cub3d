@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:28:12 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/02 04:30:27 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/10/03 15:52:30 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-#include <math.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
 #define X_EVENT_KEY_PRESS	2
 #define X_EVENT_KEY_EXIT	17
 #define mapWidth 24
@@ -59,11 +55,6 @@ void	load_texture(t_info *info)
 	load_image(info, info->texture[1], "./textures/stone2.xpm", &img);
 	load_image(info, info->texture[2], "./textures/stone3.xpm", &img);
 	load_image(info, info->texture[3], "./textures/stone4.xpm", &img);
-	load_image(info, info->texture[4], "./textures/stone1.xpm", &img);
-	load_image(info, info->texture[5], "./textures/stone2.xpm", &img);
-	load_image(info, info->texture[6], "./textures/stone3.xpm", &img);
-	load_image(info, info->texture[7], "./textures/stone4.xpm", &img);
-
 }
 
 int	main(void)
@@ -72,12 +63,14 @@ int	main(void)
 	info.mlx = mlx_init();
 
 	info.posX = 22.0;
-	info.posY = 11.5;
+	info.posY = 11.0;
 	info.dirX = -1.0;
 	info.dirY = 0.0;
 	info.planeX = 0.0;
 	info.planeY = 0.66;
-	info.re_buf = 0;
+	info.re_buf = 0;	
+	info.texWidth = 64;
+	info.texHeight = 64;
 
 	for (int i = 0; i < height; i++)
 	{
@@ -87,14 +80,14 @@ int	main(void)
 		}
 	}
 
-	if (!(info.texture = (int **)malloc(sizeof(int *) * 8)))
+	if (!(info.texture = (int **)malloc(sizeof(int *) * 4)))
 		return (-1);
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		if (!(info.texture[i] = (int *)malloc(sizeof(int) * (64 * 64))))
 			return (-1);
 	}
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 64 * 64; j++)
 		{

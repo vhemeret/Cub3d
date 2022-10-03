@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:55:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/10/02 04:36:07 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/10/03 16:09:56 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../../cub3d.h"
-#include <math.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
+
 #define X_EVENT_KEY_PRESS	2
 #define X_EVENT_KEY_EXIT	17
 #define mapWidth 24
@@ -65,165 +62,150 @@ void	draw(t_info *info)
 	mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0);
 }
 
+int		get_num_tex(t_info *info, int mapX, int mapY)
+{
+	int texNum;
+
+	texNum = 0;
+	if (info->side == 0 && mapX - info->posX >= 0)
+		texNum = 0;
+	else if (info->side == 0 && mapX - info->posX < 0)
+		texNum = 1;
+	else if (info->side == 1 && mapY - info->posY < 0)
+		texNum = 2;
+	else if (info->side == 1 && mapY - info->posY >= 0)
+		texNum = 3;
+	return (texNum);
+}
+
+void	draw_color_texture(t_info *info, int x, int texNum, double step)
+{
+	double texPos;	
+	int tmp = -1;
+	int	y = info->drawStart -1;
+	int	texY;
+	int color;
+	
+	texPos = (info->drawStart - height / 2 + info->lineHeight / 2) * step;
+	while (++tmp < info->drawStart)
+		info->buf[tmp][x] = (65536 * 52 + 256 * 149 + 235);
+	tmp = info->drawEnd - 1;
+	while (++tmp < 1080)
+		info->buf[tmp][x] = 0XFFCC66;
+	while (++y < info->drawEnd)
+	{
+		texY = (int)texPos & (info->texHeight - 1);
+		texPos += step;
+		color = info->texture[texNum][info->texHeight * texY + info->texX];
+		if (info->side == 1)
+			color = (color >> 1) & 8355711;
+		info->buf[y][x] = color;
+		info->re_buf = 1;
+	}
+}
+
 void	calc(t_info *info)
 {
 	int	x;
+	int	hit;
+	int mapX;
+	int mapY;
+	double wallX;
 
-	x = 0;
-	while (x < width)
+	x = -1;
+	while (++x < width)
 	{
-		double cameraX = 2 * x / (double)width - 1;
-		double rayDirX = info->dirX + info->planeX * cameraX;
-		double rayDirY = info->dirY + info->planeY * cameraX;
+		info->utils.rayDirX = info->dirX + info->planeX * ((double)(2 * x / (double)width - 1));
+		info->utils.rayDirY = info->dirY + info->planeY * ((double)(2 * x / (double)width - 1));
 		
-		int mapX = (int)info->posX;
-		int mapY = (int)info->posY;
+		mapX = (int)info->posX;
+		mapY = (int)info->posY;
 
-		//length of ray from current position to next x or y-side
-		double sideDistX;
-		double sideDistY;
-		
-		 //length of ray from one x or y-side to next x or y-side
-		double deltaDistX = fabs(1 / rayDirX);
-		double deltaDistY = fabs(1 / rayDirY);
+		info->utils.deltaDistX = fabs(1 / info->utils.rayDirX);
+		info->utils.deltaDistY = fabs(1 / info->utils.rayDirY);
 		double perpWallDist;
 		
-		//what direction to step in x or y-direction (either +1 or -1)
 		int stepX;
 		int stepY;
-		
-		int hit = 0; //was there a wall hit?
-		int side; //was a NS or a EW wall hit?
-
-		if (rayDirX < 0)
+		hit = 0; //was there a wall hit?
+		if (info->utils.rayDirX < 0)
 		{
 			stepX = -1;
-			sideDistX = (info->posX - mapX) * deltaDistX;
+			info->utils.sideDistX = (info->posX - mapX) * info->utils.deltaDistX;
 		}
 		else
 		{
 			stepX = 1;
-			sideDistX = (mapX + 1.0 - info->posX) * deltaDistX;
+			info->utils.sideDistX = (mapX + 1.0 - info->posX) * info->utils.deltaDistX;
 		}
-		if (rayDirY < 0)
+		if (info->utils.rayDirY < 0)
 		{
 			stepY = -1;
-			sideDistY = (info->posY - mapY) * deltaDistY;
+			info->utils.sideDistY = (info->posY - mapY) * info->utils.deltaDistY;
 		}
 		else
 		{
 			stepY = 1;
-			sideDistY = (mapY + 1.0 - info->posY) * deltaDistY;
+			info->utils.sideDistY = (mapY + 1.0 - info->posY) * info->utils.deltaDistY;
 		}
 
 		while (hit == 0)
 		{
 			//jump to next map square, OR in x-direction, OR in y-direction
-			if (sideDistX < sideDistY)
+			if (info->utils.sideDistX < info->utils.sideDistY)
 			{
-				sideDistX += deltaDistX;
+				info->utils.sideDistX += info->utils.deltaDistX;
 				mapX += stepX;
-				side = 0;
+				info->side = 0;
 			}
 			else
 			{
-				sideDistY += deltaDistY;
+				info->utils.sideDistY += info->utils.deltaDistY;
 				mapY += stepY;
-				side = 1;
+				info->side = 1;
 			}
 			//Check if ray has hit a wall
-			if (worldMap[mapX][mapY] > 0) hit = 1;
+			if (worldMap[mapX][mapY] > 0)
+				hit = 1;
 		}
-		if (side == 0)
-			perpWallDist = (mapX - info->posX + (1 - stepX) / 2) / rayDirX;
+		if (info->side == 0)
+			perpWallDist = (mapX - info->posX + (1 - stepX) / 2) / info->utils.rayDirX;
 		else
-			perpWallDist = (mapY - info->posY + (1 - stepY) / 2) / rayDirY;
-
-		//Calculate height of line to draw on screen
-		int lineHeight = (int)(height / perpWallDist);
-
-		//calculate lowest and highest pixel to fill in current stripe
-		int drawStart = -lineHeight / 2 + height / 2;
-		if(drawStart < 0)
-			drawStart = 0;
-		int drawEnd = lineHeight / 2 + height / 2;
-		if(drawEnd >= height)
-			drawEnd = height - 1;
-
-		// texturing calculations
-		int texNum = 0;
-		if (side == 0 && mapX - info->posX >= 0)
-			texNum = 0;
-		else if (side == 0 && mapX - info->posX < 0)
-			texNum = 1;
-		else if (side == 1 && mapY - info->posY < 0)
-			texNum = 2;
-		else if (side == 1 && mapY - info->posY >= 0)
-			texNum = 3;
-		
-		info->texWidth = 64;
-		info->texHeight = 64;
-		// calculate value of wallX
-		double wallX;
-		if (side == 0)
-			wallX = info->posY + perpWallDist * rayDirY;
+			perpWallDist = (mapY - info->posY + (1 - stepY) / 2) / info->utils.rayDirY;
+		info->lineHeight = (int)(height / perpWallDist);
+		info->drawStart = -info->lineHeight / 2 + height / 2;
+		if(info->drawStart < 0)
+			info->drawStart = 0;
+		info->drawEnd = info->lineHeight / 2 + height / 2;
+		if(info->drawEnd >= height)
+			info->drawEnd = height - 1;
+		if (info->side == 0)
+			wallX = info->posY + perpWallDist * info->utils.rayDirY;
 		else
-			wallX = info->posX + perpWallDist * rayDirX;
+			wallX = info->posX + perpWallDist * info->utils.rayDirX;
 		wallX -= floor(wallX);
-
-		// x coordinate on the texture
-		int texX = (int)(wallX * (double)info->texWidth);
-		if (side == 0 && rayDirX > 0)
-			texX = info->texWidth - texX - 1;
-		if (side == 1 && rayDirY < 0)
-			texX = info->texWidth - texX - 1;
-
-		// How much to increase the texture coordinate perscreen pixel
-		double step = 1.0 * info->texHeight / lineHeight;
-		// Starting texture coordinate
-		double texPos = (drawStart - height / 2 + lineHeight / 2) * step;
-		
-		int baba = -1;
-		while (++baba < drawStart)
-		{
-			info->buf[baba][x] = 0X7EC4E0;
-		}
-		baba = drawEnd - 1;
-		while (++baba < 1080)
-		{
-			info->buf[baba][x] = 0X899696;
-		}
-		for (int y = drawStart; y < drawEnd; y++)
-		{
-			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-			int texY = (int)texPos & (info->texHeight - 1);
-			texPos += step;
-			int color = info->texture[texNum][info->texHeight * texY + texX];
-			// make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-			if (side == 1)
-				color = (color >> 1) & 8355711;
-			info->buf[y][x] = color;
-			info->re_buf = 1;
-		}
-		x++;
+		info->texX = (int)(wallX * (double)info->texWidth);
+		if (info->side == 0 && info->utils.rayDirX > 0)
+			info->texX = info->texWidth - info->texX - 1;
+		if (info->side == 1 && info->utils.rayDirY < 0)
+			info->texX = info->texWidth - info->texX - 1;
+		draw_color_texture(info, x, get_num_tex(info, mapX, mapY), (double)(1.0 * info->texHeight / info->lineHeight));
 	}
 }
 
-/*void	draw_color_texture(t_info *info, int drawStart, int drawEnd, int x)
-{
-	
-}*/
-
 void	load_image(t_info *info, int *texture, char *path, t_img *img)
 {
+	int	x;
+	int	y;
+	
+	y = -1;
 	img->img = mlx_xpm_file_to_image(info->mlx, path, &img->img_width, &img->img_height);
 	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, &img->endian);
-	for (int y = 0; y < img->img_height; y++)
+	while (++y < img->img_height)
 	{
-		for (int x = 0; x < img->img_width; x++)
-		{
+		x = -1;
+		while (++x < img->img_width)
 			texture[img->img_width * y + x] = img->data[img->img_width * y + x];
-		}
 	}
 	mlx_destroy_image(info->mlx, img->img);
 }
