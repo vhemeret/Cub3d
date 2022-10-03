@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/03 16:05:16 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/03 19:16:35 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ typedef	struct s_calc_utils
 	double sideDistY;
 	double deltaDistX;
 	double deltaDistY;
+	double wallX;
+	double perpWallDist;
 }	t_calc_utils;
 
 typedef struct	s_info
@@ -131,6 +133,7 @@ typedef struct	s_info
 	void	*mlx;
 	void	*win;
 	int		buf[1080][1920];
+	char	**map;
 	int		**texture;
 	int		texWidth;
 	int		texHeight;
@@ -170,6 +173,7 @@ int		get_position_player(char **map, t_pos *pos);
 void	load_image(t_info *info, int *texture, char *path, t_img *img);
 
 
+
 /*##################### CLEANING #####################*/
 
 void	free_double_arr(char **arr);
@@ -186,6 +190,8 @@ void	put_pixel(t_data_engine *engine, void *img);
 void	my_mlx_pixel_put(t_data_engine *data, int x, int y, int color);
 unsigned int	get_color_pixel(void *img, t_data_img *el, int y, int x);
 void	init(t_data_engine	**engine);
-int	main_loop(t_info *info);
-int	key_press(int key, t_info *info);
+int		main_loop(t_info *info);
+int		key_press(int key, t_info *info);
+void	key_press_suite(int key, t_info *info);
+void	key_press_end(int key, t_info *info);
 #endif

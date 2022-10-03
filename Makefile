@@ -6,7 +6,7 @@
 #    By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 04:35:45 by vahemere          #+#    #+#              #
-#    Updated: 2022/09/19 11:09:52 by brhajji-         ###   ########.fr        #
+#    Updated: 2022/10/03 19:14:22 by brhajji-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ get_next_line_utils.c get_next_line.c \
 get_position_player.c \
 free_double_arr.c \
 ft_split.c remove_wspace.c ft_atoi.c ft_strncmp.c \
-init_map.c display.c test.c\
+init_map.c display.c test.c key_press.c\
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.c=%.o))
 

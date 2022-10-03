@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:28:12 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/03 15:52:30 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/03 23:03:06 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int	main(void)
 	t_info info;
 	info.mlx = mlx_init();
 
-	info.posX = 22.0;
-	info.posY = 11.0;
+	info.posX = 1.5;
+	info.posY = 1.5;
 	info.dirX = -1.0;
 	info.dirY = 0.0;
 	info.planeX = 0.0;
@@ -97,7 +97,7 @@ int	main(void)
 
 	load_texture(&info);
 
-	info.moveSpeed = 0.1;
+	info.moveSpeed = 0.1001;
 	info.rotSpeed = 0.05;
 	
 	info.win = mlx_new_window(info.mlx, width, height, "mlx");

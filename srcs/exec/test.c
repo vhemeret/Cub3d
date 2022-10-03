@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:55:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/10/03 16:09:56 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/03 19:12:23 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 int	worldMap[24][24] = {
 							{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+							{1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 							{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
@@ -104,75 +104,39 @@ void	draw_color_texture(t_info *info, int x, int texNum, double step)
 	}
 }
 
-void	calc(t_info *info)
+void	init_calc(t_info *info, int *stepX, int *stepY, int *mapX, int *mapY)
 {
-	int	x;
-	int	hit;
-	int mapX;
-	int mapY;
-	double wallX;
-
-	x = -1;
-	while (++x < width)
+	info->utils.deltaDistX = fabs(1 / info->utils.rayDirX);
+	info->utils.deltaDistY = fabs(1 / info->utils.rayDirY);
+	if (info->utils.rayDirX < 0)
 	{
-		info->utils.rayDirX = info->dirX + info->planeX * ((double)(2 * x / (double)width - 1));
-		info->utils.rayDirY = info->dirY + info->planeY * ((double)(2 * x / (double)width - 1));
-		
-		mapX = (int)info->posX;
-		mapY = (int)info->posY;
+		*stepX = -1;
+		info->utils.sideDistX = (info->posX - *mapX) * info->utils.deltaDistX;
+	}
+	else
+	{
+		*stepX = 1;
+		info->utils.sideDistX = (*mapX + 1.0 - info->posX) * info->utils.deltaDistX;
+	}
+	if (info->utils.rayDirY < 0)
+	{
+		*stepY = -1;
+		info->utils.sideDistY = (info->posY - *mapY) * info->utils.deltaDistY;
+	}
+	else
+	{
+		*stepY = 1;
+		info->utils.sideDistY = (*mapY + 1.0 - info->posY) * info->utils.deltaDistY;
+	}
+}
 
-		info->utils.deltaDistX = fabs(1 / info->utils.rayDirX);
-		info->utils.deltaDistY = fabs(1 / info->utils.rayDirY);
-		double perpWallDist;
-		
-		int stepX;
-		int stepY;
-		hit = 0; //was there a wall hit?
-		if (info->utils.rayDirX < 0)
-		{
-			stepX = -1;
-			info->utils.sideDistX = (info->posX - mapX) * info->utils.deltaDistX;
-		}
-		else
-		{
-			stepX = 1;
-			info->utils.sideDistX = (mapX + 1.0 - info->posX) * info->utils.deltaDistX;
-		}
-		if (info->utils.rayDirY < 0)
-		{
-			stepY = -1;
-			info->utils.sideDistY = (info->posY - mapY) * info->utils.deltaDistY;
-		}
-		else
-		{
-			stepY = 1;
-			info->utils.sideDistY = (mapY + 1.0 - info->posY) * info->utils.deltaDistY;
-		}
-
-		while (hit == 0)
-		{
-			//jump to next map square, OR in x-direction, OR in y-direction
-			if (info->utils.sideDistX < info->utils.sideDistY)
-			{
-				info->utils.sideDistX += info->utils.deltaDistX;
-				mapX += stepX;
-				info->side = 0;
-			}
-			else
-			{
-				info->utils.sideDistY += info->utils.deltaDistY;
-				mapY += stepY;
-				info->side = 1;
-			}
-			//Check if ray has hit a wall
-			if (worldMap[mapX][mapY] > 0)
-				hit = 1;
-		}
+void	draw_utils(t_info *info, int mapX, int mapY, int stepX, int stepY)
+{
 		if (info->side == 0)
-			perpWallDist = (mapX - info->posX + (1 - stepX) / 2) / info->utils.rayDirX;
+			info->utils.perpWallDist = (mapX - info->posX + (1 - stepX) / 2) / info->utils.rayDirX;
 		else
-			perpWallDist = (mapY - info->posY + (1 - stepY) / 2) / info->utils.rayDirY;
-		info->lineHeight = (int)(height / perpWallDist);
+			info->utils.perpWallDist = (mapY - info->posY + (1 - stepY) / 2) / info->utils.rayDirY;
+		info->lineHeight = (int)(height / info->utils.perpWallDist);
 		info->drawStart = -info->lineHeight / 2 + height / 2;
 		if(info->drawStart < 0)
 			info->drawStart = 0;
@@ -180,15 +144,56 @@ void	calc(t_info *info)
 		if(info->drawEnd >= height)
 			info->drawEnd = height - 1;
 		if (info->side == 0)
-			wallX = info->posY + perpWallDist * info->utils.rayDirY;
+			info->utils.wallX = info->posY + info->utils.perpWallDist * info->utils.rayDirY;
 		else
-			wallX = info->posX + perpWallDist * info->utils.rayDirX;
-		wallX -= floor(wallX);
-		info->texX = (int)(wallX * (double)info->texWidth);
+			info->utils.wallX = info->posX + info->utils.perpWallDist * info->utils.rayDirX;
+		info->utils.wallX -= floor(info->utils.wallX);
+		info->texX = (int)(info->utils.wallX * (double)info->texWidth);
 		if (info->side == 0 && info->utils.rayDirX > 0)
 			info->texX = info->texWidth - info->texX - 1;
 		if (info->side == 1 && info->utils.rayDirY < 0)
 			info->texX = info->texWidth - info->texX - 1;
+}
+
+void	dda(t_info *info, int *mapX, int *mapY, int stepX, int stepY)
+{
+	while (1)
+	{
+		if (info->utils.sideDistX < info->utils.sideDistY)
+		{
+			info->utils.sideDistX += info->utils.deltaDistX;
+			*mapX += stepX;
+			info->side = 0;
+		}
+		else
+		{
+			info->utils.sideDistY += info->utils.deltaDistY;
+			*mapY += stepY;
+			info->side = 1;
+		}
+		if (worldMap[*mapX][*mapY] > 0)
+			break;
+	}
+}
+
+void	calc(t_info *info)
+{
+	int	x;
+	int mapX;
+	int mapY;
+	int stepX;
+	int stepY;
+
+	x = -1;
+	while (++x < width)
+	{
+		mapX = (int)info->posX;
+		mapY = (int)info->posY;
+		info->utils.rayDirX = info->dirX + info->planeX * ((double)(2 * x / (double)width - 1));
+		info->utils.rayDirY = info->dirY + info->planeY * ((double)(2 * x / (double)width - 1));
+		init_calc(info, &stepX, &stepY, &mapX, &mapY);
+		dda(info, &mapX, &mapY, stepX, stepY);
+		draw_utils(info, mapX, mapY, stepX, stepY);
 		draw_color_texture(info, x, get_num_tex(info, mapX, mapY), (double)(1.0 * info->texHeight / info->lineHeight));
 	}
 }
@@ -214,65 +219,5 @@ int	main_loop(t_info *info)
 {
 	calc(info);
 	draw(info);
-	return (0);
-}
-
-int	key_press(int key, t_info *info)
-{
-	if (key == 119)
-	{
-		if (!worldMap[(int)(info->posX + info->dirX * info->moveSpeed)][(int)(info->posY)])
-			info->posX += info->dirX * info->moveSpeed;
-		if (!worldMap[(int)(info->posX)][(int)(info->posY + info->dirY * info->moveSpeed)])
-			info->posY += info->dirY * info->moveSpeed;
-	}
-	//move backwards if no wall behind you
-	if (key == 115)
-	{
-		if (!worldMap[(int)(info->posX - info->dirX * info->moveSpeed)][(int)(info->posY)])
-			info->posX -= info->dirX * info->moveSpeed;
-		if (!worldMap[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
-			info->posY -= info->dirY * info->moveSpeed;
-	}
-	//move left
-	if (key == 97)
-	{
-		if (!worldMap[(int)(info->posX - info->dirY * info->moveSpeed)][(int)(info->posY)])
-			info->posX -= info->dirY * info->moveSpeed;
-		if (!worldMap[(int)(info->posX)][(int)(info->posY + info->dirX * info->moveSpeed)])
-			info->posY += info->dirX * info->moveSpeed;
-	}
-	//move right
-	if (key == 100)
-	{
-		if (!worldMap[(int)(info->posX - info->dirY * info->moveSpeed)][(int)(info->posY)])
-			info->posX += info->dirY * info->moveSpeed;
-		if (!worldMap[(int)(info->posX)][(int)(info->posY - info->dirX * info->moveSpeed)])
-			info->posY -= info->dirX * info->moveSpeed;
-	}
-	//rotate to the right
-	if (key == 65363)//100
-	{
-		//both camera direction and camera plane must be rotated
-		double oldDirX = info->dirX;
-		info->dirX = info->dirX * cos(-info->rotSpeed) - info->dirY * sin(-info->rotSpeed);
-		info->dirY = oldDirX * sin(-info->rotSpeed) + info->dirY * cos(-info->rotSpeed);
-		double oldPlaneX = info->planeX;
-		info->planeX = info->planeX * cos(-info->rotSpeed) - info->planeY * sin(-info->rotSpeed);
-		info->planeY = oldPlaneX * sin(-info->rotSpeed) + info->planeY * cos(-info->rotSpeed);
-	}
-	//rotate to the left
-	if (key == 65361)//97
-	{
-		//both camera direction and camera plane must be rotated
-		double oldDirX = info->dirX;
-		info->dirX = info->dirX * cos(info->rotSpeed) - info->dirY * sin(info->rotSpeed);
-		info->dirY = oldDirX * sin(info->rotSpeed) + info->dirY * cos(info->rotSpeed);
-		double oldPlaneX = info->planeX;
-		info->planeX = info->planeX * cos(info->rotSpeed) - info->planeY * sin(info->rotSpeed);
-		info->planeY = oldPlaneX * sin(info->rotSpeed) + info->planeY * cos(info->rotSpeed);
-	}
-	if (key == 65307)
-		mlx_loop_end(info->mlx);
 	return (0);
 }
