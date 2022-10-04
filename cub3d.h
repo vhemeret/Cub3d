@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/03 19:16:35 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/04 20:18:16 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@
 # include <time.h>
 # include <stdlib.h>
 # include <string.h>
+
+/*###################### DEFINE #######################*/
+
+# define X_EVENT_KEY_PRESS 2
+# define X_EVENT_KEY_EXIT 17
+# define mapWidth 24
+# define mapHeight 24
+# define width 1920
+# define height 1080
 
 /*##################### STRUCTURES #####################*/
 typedef struct s_map
@@ -169,8 +178,9 @@ int		get_position_player(char **map, t_pos *pos);
 
 /*##################### DISPLAY #####################*/
 
+int		exec(t_all *all);
 int		get_position_player(char **map, t_pos *pos);
-void	load_image(t_info *info, int *texture, char *path, t_img *img);
+int		load_image(t_info *info, int *texture, char *path, t_img *img);
 
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:55:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/10/03 19:12:23 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/04 20:08:48 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ void	draw_color_texture(t_info *info, int x, int texNum, double step)
 	
 	texPos = (info->drawStart - height / 2 + info->lineHeight / 2) * step;
 	while (++tmp < info->drawStart)
-		info->buf[tmp][x] = (65536 * 52 + 256 * 149 + 235);
+		info->buf[tmp][x] = (65536 * 52 + 256 * 149 + 235); // a modifier all->map->c_rgb;
 	tmp = info->drawEnd - 1;
 	while (++tmp < 1080)
-		info->buf[tmp][x] = 0XFFCC66;
+		info->buf[tmp][x] = 0XFFCC66; //  a modifier all->map->f_rgb;
 	while (++y < info->drawEnd)
 	{
 		texY = (int)texPos & (info->texHeight - 1);
@@ -198,14 +198,21 @@ void	calc(t_info *info)
 	}
 }
 
-void	load_image(t_info *info, int *texture, char *path, t_img *img)
+int	load_image(t_info *info, int *texture, char *path, t_img *img)
 {
 	int	x;
 	int	y;
 	
 	y = -1;
 	img->img = mlx_xpm_file_to_image(info->mlx, path, &img->img_width, &img->img_height);
+	if (!img->img)
+		return (0);
 	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, &img->endian);
+	if (!img->data)
+	{
+		mlx_destroy_image(info->mlx, img->img);
+		return (0);
+	}
 	while (++y < img->img_height)
 	{
 		x = -1;

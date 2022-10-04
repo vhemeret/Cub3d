@@ -1,3 +1,0 @@
-remplacer les espaces des lignes intermediaires par des 0;
-mettre ma mape dans un carre et remplacer tout les espaces par un caractere *
-ensuite parcourir ma map, checker si un 0 n' est pas entoure de *
