@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/04 21:38:33 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/05 23:17:34 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,30 @@
 
 /*###################### DEFINE #######################*/
 
+# define X_EVENT_KEY_PRESS 2
+# define X_EVENT_KEY_EXIT 17
+# define mapWidth 24
+# define mapHeight 24
+# define WIDTH 1920
+# define HEIGHT 1080
+
 typedef struct s_mem
 {
 	struct s_mem	*next;
 	void			*addr;
+	struct s_mem	*back;
 }				t_mem;
 
+typedef struct	s_img
+{
+	void	*img;
+	int		*data;
+	int		size_l;
+	int		bpp;
+	int		endian;
+	int		img_width;
+	int		img_height;
+}				t_img;
 typedef struct s_face
 {
 	int	NO;
@@ -97,7 +115,6 @@ typedef struct	s_info
 	void	*mlx;
 	void	*win;
 	int		buf[1080][1920];
-	char	**map;
 	int		**texture;
 	int		texWidth;
 	int		texHeight;
@@ -110,7 +127,8 @@ typedef struct	s_info
 	double	rotSpeed;
 	int		re_buf;
 	int		t_width;
-	t_img		img;
+	t_img	img;
+	t_all	*all;
 	t_calc_utils	utils;
 }				t_info;
 
@@ -130,14 +148,13 @@ void	put_path_data(char **arr, t_all *all);
 int		check_body_map(t_all *all);
 char	**create_square(t_all *all, int last_line);
 void	size_map(t_all *all, char *line);
+void	replace_space(char **square);
 
 /*##################### DISPLAY #####################*/
 
 int		exec(t_all *all);
-int		get_position_player(char **map, t_pos *pos);
+int		get_position_player(char **map, t_info *info);
 int		load_image(t_info *info, int *texture, char *path, t_img *img);
-
-
 
 /*##################### CLEANING #####################*/
 
@@ -154,12 +171,6 @@ int		ft_atoi(const char *nptr);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		first_line(char **map, t_all *all);
 void	last_line(char **map, t_all *all);
-
-void	display_map(t_data_engine	*engine);
-void	put_pixel(t_data_engine *engine, void *img);
-void	my_mlx_pixel_put(t_data_engine *data, int x, int y, int color);
-unsigned int	get_color_pixel(void *img, t_data_img *el, int y, int x);
-void	init(t_data_engine	**engine);
 int		main_loop(t_info *info);
 int		key_press(int key, t_info *info);
 void	key_press_suite(int key, t_info *info);

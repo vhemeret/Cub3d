@@ -6,7 +6,7 @@
 #    By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 04:35:45 by vahemere          #+#    #+#              #
-#    Updated: 2022/10/04 21:38:14 by brhajji-         ###   ########.fr        #
+#    Updated: 2022/10/04 22:15:11 by brhajji-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ get_next_line_utils.c get_next_line.c \
 get_position_player.c \
 free_double_arr.c mem.c \
 ft_split.c remove_wspace.c ft_atoi.c ft_strncmp.c line.c \
-init_map.c display.c test.c key_press.c\
+exec.c test.c key_press.c\
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.c=%.o))
 
@@ -33,7 +33,7 @@ LIB_NAME = $(LIB_DIR)/libmlx_Linux.a
 ########################### COMPILATION AND FLAGS ###########################
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3# -fsanitize=address
 LIB_FLAGS = -lXext -lX11 -lm
 
 ##################################### COLOR ##################################

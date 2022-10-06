@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:55:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/10/04 21:34:49 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/05 23:49:12 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,44 +29,17 @@
 #define width 1920
 #define height 1080
 
-int	worldMap[24][24] = {
-							{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-							{1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-							{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-							{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-						};
-
 void	draw(t_info *info)
 {
 	//bzero(info->img.data, 1080*1920);
 	mlx_destroy_image(info->mlx, info->img.img);
-	info->img.img = mlx_new_image(info->mlx, width, height);
+	info->img.img = mlx_new_image(info->mlx, WIDTH, HEIGHT);
 	//info->img.data = (int *)mlx_get_data_addr(info->img.img, &info->img.bpp, &info->img.size_l, &info->img.endian);
-	for (int y = 0; y < height; y++)
+	for (int y = 0; y < HEIGHT; y++)
 	{
-		for (int x = 0; x < width; x++)
+		for (int x = 0; x < WIDTH; x++)
 		{
-			info->img.data[y * width + x] = info->buf[y][x];
+			info->img.data[y * WIDTH + x] = info->buf[y][x];
 		}
 	}
 	mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0);
@@ -96,7 +69,7 @@ void	draw_color_texture(t_info *info, int x, int texNum, double step)
 	int	texY;
 	int color;
 	
-	texPos = (info->drawStart - height / 2 + info->lineHeight / 2) * step;
+	texPos = (info->drawStart - HEIGHT / 2 + info->lineHeight / 2) * step;
 	while (++tmp < info->drawStart)
 		info->buf[tmp][x] = (65536 * 52 + 256 * 149 + 235); // a modifier all->map->c_rgb;
 	tmp = info->drawEnd - 1;
@@ -167,7 +140,7 @@ void	draw_utils(t_info *info, int mapX, int mapY, int stepX, int stepY)
 
 void	dda(t_info *info, int *mapX, int *mapY, int stepX, int stepY)
 {
-	while (1)
+	while (*mapX >= 0 && *mapY >= 0)
 	{
 		if (info->utils.sideDistX < info->utils.sideDistY)
 		{
@@ -181,7 +154,7 @@ void	dda(t_info *info, int *mapX, int *mapY, int stepX, int stepY)
 			*mapY += stepY;
 			info->side = 1;
 		}
-		if (worldMap[*mapX][*mapY] > 0)
+		if (info->all->map->map[*mapX + 1][*mapY + 1] && *mapX >= 0 && *mapY >= 0 && info->all->map->map[*mapX][*mapY] > '0' && info->all->map->map[*mapX][*mapY] != '*')
 			break;
 	}
 }
@@ -199,6 +172,7 @@ void	calc(t_info *info)
 	{
 		mapX = (int)info->posX;
 		mapY = (int)info->posY;
+		
 		info->utils.rayDirX = info->dirX + info->planeX * ((double)(2 * x / (double)width - 1));
 		info->utils.rayDirY = info->dirY + info->planeY * ((double)(2 * x / (double)width - 1));
 		init_calc(info, &stepX, &stepY, &mapX, &mapY);
@@ -216,7 +190,9 @@ int	load_image(t_info *info, int *texture, char *path, t_img *img)
 	y = -1;
 	img->img = mlx_xpm_file_to_image(info->mlx, path, &img->img_width, &img->img_height);
 	if (!img->img)
+	{
 		return (0);
+	}
 	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, &img->endian);
 	if (!img->data)
 	{
@@ -227,9 +203,12 @@ int	load_image(t_info *info, int *texture, char *path, t_img *img)
 	{
 		x = -1;
 		while (++x < img->img_width)
+		{
 			texture[img->img_width * y + x] = img->data[img->img_width * y + x];
+		}
 	}
 	mlx_destroy_image(info->mlx, img->img);
+	return (1);
 }
 
 int	main_loop(t_info *info)
