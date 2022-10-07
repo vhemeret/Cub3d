@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/05 23:17:34 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/07 06:44:20 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define X_EVENT_KEY_EXIT 17
 # define mapWidth 24
 # define mapHeight 24
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1080
+# define HEIGHT 720
 
 typedef struct s_mem
 {
@@ -114,7 +114,7 @@ typedef struct	s_info
 	double planeY;
 	void	*mlx;
 	void	*win;
-	int		buf[1080][1920];
+	int		buf[720][1080];
 	int		**texture;
 	int		texWidth;
 	int		texHeight;

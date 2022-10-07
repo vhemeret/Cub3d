@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:29:50 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/10/04 21:30:12 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/07 01:24:45 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	put_pixel(t_data_engine *engine, void *img)
 	int	j;
 	(void)(img);
 	i = -1;
-	while (++i < 1080)
+	while (++i < 720)
 	{
 		j = -1;
-		while (++j < 1920)
+		while (++j < 1080)
 		{
 			if (i <= engine->player->vue_y)
 				my_mlx_pixel_put(engine, j,
@@ -45,10 +45,10 @@ void	put_pixel(t_data_engine *engine, void *img)
 void	display_map(t_data_engine	*engine)
 {
 	engine->init->mlx = mlx_init();
-	//engine->img->img = mlx_new_image(engine->init->mlx, 1920, 1080);
+	//engine->img->img = mlx_new_image(engine->init->mlx, 1080, 720);
 	//engine->img->addr = mlx_get_data_addr(engine->img->img, &engine->img->bpp,
 	//		&engine->img->line_l, &engine->img->endian);
-	engine->init->window = mlx_new_window(engine->init->mlx,  1920, 1080,
+	engine->init->window = mlx_new_window(engine->init->mlx,  1080, 720,
 			"CUB3D");
 	//put_pixel(engine, NULL);
 	//insert_sprite(engine);

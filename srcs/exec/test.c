@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:55:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/10/05 23:49:12 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/07 06:44:29 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@
 #define X_EVENT_KEY_EXIT	17
 #define mapWidth 24
 #define mapHeight 24
-#define width 1920
-#define height 1080
+#define width 1080
+#define height 720
 
 #define X_EVENT_KEY_PRESS	2
 #define X_EVENT_KEY_EXIT	17
 #define mapWidth 24
 #define mapHeight 24
-#define width 1920
-#define height 1080
+#define width 1080
+#define height 720
 
 void	draw(t_info *info)
 {
-	//bzero(info->img.data, 1080*1920);
+	//bzero(info->img.data, 720*1080);
 	mlx_destroy_image(info->mlx, info->img.img);
 	info->img.img = mlx_new_image(info->mlx, WIDTH, HEIGHT);
 	//info->img.data = (int *)mlx_get_data_addr(info->img.img, &info->img.bpp, &info->img.size_l, &info->img.endian);
@@ -71,10 +71,10 @@ void	draw_color_texture(t_info *info, int x, int texNum, double step)
 	
 	texPos = (info->drawStart - HEIGHT / 2 + info->lineHeight / 2) * step;
 	while (++tmp < info->drawStart)
-		info->buf[tmp][x] = (65536 * 52 + 256 * 149 + 235); // a modifier all->map->c_rgb;
+		info->buf[tmp][x] = info->all->map->c_rgb; // a modifier all->map->c_rgb;
 	tmp = info->drawEnd - 1;
-	while (++tmp < 1080)
-		info->buf[tmp][x] = 0XFFCC66; //  a modifier all->map->f_rgb;
+	while (++tmp < 720)
+		info->buf[tmp][x] = info->all->map->f_rgb; //  a modifier all->map->f_rgb;
 	while (++y < info->drawEnd)
 	{
 		texY = (int)texPos & (info->texHeight - 1);
@@ -91,6 +91,7 @@ void	init_calc(t_info *info, int *stepX, int *stepY, int *mapX, int *mapY)
 {
 	info->utils.deltaDistX = fabs(1 / info->utils.rayDirX);
 	info->utils.deltaDistY = fabs(1 / info->utils.rayDirY);
+	//printf("test = > %f \n",info->utils.rayDirX);
 	if (info->utils.rayDirX < 0)
 	{
 		*stepX = -1;
@@ -154,7 +155,7 @@ void	dda(t_info *info, int *mapX, int *mapY, int stepX, int stepY)
 			*mapY += stepY;
 			info->side = 1;
 		}
-		if (info->all->map->map[*mapX + 1][*mapY + 1] && *mapX >= 0 && *mapY >= 0 && info->all->map->map[*mapX][*mapY] > '0' && info->all->map->map[*mapX][*mapY] != '*')
+		if (info->all->map->map[*mapX][*mapY] && info->all->map->map[*mapX][*mapY] > '0' && info->all->map->map[*mapX][*mapY] != '*')
 			break;
 	}
 }
@@ -173,8 +174,8 @@ void	calc(t_info *info)
 		mapX = (int)info->posX;
 		mapY = (int)info->posY;
 		
-		info->utils.rayDirX = info->dirX + info->planeX * ((double)(2 * x / (double)width - 1));
-		info->utils.rayDirY = info->dirY + info->planeY * ((double)(2 * x / (double)width - 1));
+		info->utils.rayDirX = info->dirX + (info->planeX * ((double)(2 * x / (double)width - 1)));
+		info->utils.rayDirY = info->dirY + (info->planeY * ((double)(2 * x / (double)width - 1)));
 		init_calc(info, &stepX, &stepY, &mapX, &mapY);
 		dda(info, &mapX, &mapY, stepX, stepY);
 		draw_utils(info, mapX, mapY, stepX, stepY);

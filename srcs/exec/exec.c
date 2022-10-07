@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:31:21 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/05 19:48:21 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/07 06:41:08 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ int load_texture(t_info *info)
 	if (!malloc_texture(info))
 		return (0);
 	if (!load_image(info, info->texture[0], info->all->map->path_texture_ea, &img))
-	{
-		printf("ici\n");
 		return (0);
-	}
 	if (!load_image(info, info->texture[1], info->all->map->path_texture_no, &img))
 		return (0);
 	if (!load_image(info, info->texture[2], info->all->map->path_texture_so, &img))
@@ -85,7 +82,7 @@ int run_mlx(t_info *info)
 		return (0);
 	}
 	info->img.data = (int *)mlx_get_data_addr(info->img.img, &info->img.bpp,
-											  &info->img.size_l, &info->img.endian);
+		&info->img.size_l, &info->img.endian);
 	if (!load_texture(info))
 		return (0);
 	return (1);
@@ -97,10 +94,10 @@ int exec(t_all *all)
 
 	info.all = all;
 	get_position_player(info.all->map->map, &info);
-	info.dirX = -1.0;
-	info.dirY = 0.0;
-	info.planeX = 0.0;
-	info.planeY = 0.66;
+	//info.dirX = -1.0;
+	//info.dirY = 0.0;
+/*	info.planeX = 0.0;
+	info.planeY = 0.66;*/
 	info.re_buf = 0;
 	info.texWidth = 64;
 	info.texHeight = 64;
