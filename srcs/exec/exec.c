@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:31:21 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/08 02:36:21 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/08 02:52:05 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ int load_texture(t_info *info)
 
 	if (!malloc_texture(info))
 		return (0);
-	if (!load_image(info, info->texture[0], info->all->map->path_texture_ea, &img))
+	if (!load_image(info, info->texture[0], info->all->map->path_texture_no, &img))
 		return (0);
-	if (!load_image(info, info->texture[1], info->all->map->path_texture_no, &img))
+	if (!load_image(info, info->texture[1], info->all->map->path_texture_so, &img))
 		return (0);
-	if (!load_image(info, info->texture[2], info->all->map->path_texture_so, &img))
+	if (!load_image(info, info->texture[2], info->all->map->path_texture_we, &img))
 		return (0);
-	if (!load_image(info, info->texture[3], info->all->map->path_texture_we, &img))
+	if (!load_image(info, info->texture[3], info->all->map->path_texture_ea, &img))
 		return (0);
 	return (1);
 }
