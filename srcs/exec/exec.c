@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:31:21 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/07 06:41:08 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/08 02:36:21 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int malloc_texture(t_info *info)
 		while (++j < WIDTH)
 			info->buf[i][j] = 0;
 	}
-	info->texture = malloc(sizeof(int *) * 4);
+	info->texture = ft_malloc(sizeof(int *) * 4, &info->all->mem);
 	if (!info->texture)
 		return (0);
 	i = -1;
 	while (++i < 4)
 	{
-		info->texture[i] = (int *)malloc(sizeof(int) * (64 * 64));
+		info->texture[i] = ft_malloc(sizeof(int) * (64 * 64), &info->all->mem);
 		if (!info->texture[i])
 			return (0);
 	}
@@ -87,6 +87,21 @@ int run_mlx(t_info *info)
 		return (0);
 	return (1);
 }
+int	info_free(t_info *info)
+{
+	mlx_destroy_image(info->mlx, info->img.img);
+	if (info->win)
+	{
+		mlx_clear_window(info->mlx, info->win);
+		mlx_destroy_window(info->mlx, info->win);
+	}
+	if (info->mlx)
+	{
+		mlx_destroy_display(info->mlx);
+		free(info->mlx);
+	}
+	return (0);
+}
 
 int exec(t_all *all)
 {
@@ -94,14 +109,10 @@ int exec(t_all *all)
 
 	info.all = all;
 	get_position_player(info.all->map->map, &info);
-	//info.dirX = -1.0;
-	//info.dirY = 0.0;
-/*	info.planeX = 0.0;
-	info.planeY = 0.66;*/
 	info.re_buf = 0;
 	info.texWidth = 64;
 	info.texHeight = 64;
-	info.moveSpeed = 0.033;
+	info.moveSpeed = 0.1;
 	info.rotSpeed = 0.05;
 	if (!run_mlx(&info))
 	{
@@ -112,5 +123,6 @@ int exec(t_all *all)
 	mlx_hook(info.win, 17, 0, mlx_loop_end, info.mlx);
 	mlx_hook(info.win, 2, (1L << 0), key_press, &info);
 	mlx_loop(info.mlx);
+	info_free(&info);
 	return (1);
 }

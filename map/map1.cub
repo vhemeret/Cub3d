@@ -1,10 +1,10 @@
-NO ./map/test_texture/path_to_the_north_texture
-SO ./map/test_texture/path_to_the_south_texture
-WE ./map/test_texture/path_to_the_west_texture
-EA ./map/test_texture/path_to_the_east_texture
+NO ./map/test_texture/path_to_the_north_texture.xpm
+SO ./map/test_texture/path_to_the_south_texture.xpm
+WE ./map/test_texture/path_to_the_west_texture.xpm
+EA ./map/test_texture/path_to_the_east_texture.xpm
 
-F 255,0,0
-C 225,30,0
+C 84,171,179
+F 240,211,117
 
                                                                                                   
         1111111111111                 11111111             111111111111111   1111111111111

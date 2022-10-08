@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 12:05:21 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/07 06:35:37 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/08 02:04:52 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ int	get_position_player(char **map, t_info *info)
 			if (map[i][j] == 'N' || map[i][j] == 'S'
 				|| map[i][j] == 'E' || map[i][j] == 'W')
 				{
-					printf("posy = %i, posX = %i, haut = %c , bas = %c, droite = %c , gauche =  %c\n", i, j, map[i - 1][j], map[i + 1][j], map[i][j + 1], map[i][j - 1]);
+					//printf("posy = %i, posX = %i, haut = %c , bas = %c, droite = %c , gauche =  %c\n", i, j, map[i - 1][j], map[i + 1][j], map[i][j + 1], map[i][j - 1]);
+					info->posX = i + 0.5;
+					info->posY = j + 0.5;
 					if (map[i][j] == 'S')//SUD
 					{
 						info->dirX = 1;
@@ -61,14 +63,14 @@ int	get_position_player(char **map, t_info *info)
 						info->dirY = 0;
 						info->planeY = 0.6;
 					}
-					if (map[i][j] == 'E')
+					if (map[i][j] == 'W')
 					{
 						info->dirX = 0;
 						info->planeX = -0.6;
 						info->dirY = -1;
 						info->planeY = 0;
 					}
-					if (map[i][j] == 'w')
+					if (map[i][j] == 'E')
 					{
 						info->dirX = 0;
 						info->planeX = 0.6;
@@ -76,8 +78,7 @@ int	get_position_player(char **map, t_info *info)
 						info->planeY = 0;
 					}
 					map[i][j] = 0;
-					info->posX = i + 0.25;
-					info->posY = j + 0.25;
+
 					break;
 				}
 		}

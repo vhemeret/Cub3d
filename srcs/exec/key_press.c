@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 19:11:42 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/10/07 01:46:07 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/08 02:04:40 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ int	key_press(int key, t_info *info)
 	replace_space(info->all->map->map);
 	if (key == 119 && (info->posX + info->dirX * info->moveSpeed) > 0)
 	{
-		printf("dirX = %f\n", info->dirX);
-		printf("mve = %f\n", info->moveSpeed);
-		printf("old = %f\n", info->posX);
-		printf("laY %c\n", info->all->map->map[(int)(info->posX)][((int)(info->posY + (info->dirY * info->moveSpeed)))]);
-		printf("laX %c\n", info->all->map->map[((int)(info->posX + (info->dirX * info->moveSpeed)))][(int)(info->posY)]);
+		//printf("dirX = %f\n", info->dirX);
+		//printf("mve = %f\n", info->moveSpeed);
+		//printf("old = %f\n", info->posX);
+		//printf("laY %c\n", info->all->map->map[(int)(info->posX)][((int)(info->posY + (info->dirY * info->moveSpeed)))]);
+		//printf("laX %c\n", info->all->map->map[((int)(info->posX + (info->dirX * info->moveSpeed)))][(int)(info->posY)]);
 		if ('1' != info->all->map->map[((int)(info->posX + (info->dirX * info->moveSpeed)))][(int)(info->posY)])
 		{
 			info->posX += info->dirX * info->moveSpeed;
-			printf("test\n");
+			//printf("test\n");
 		}
 		if ('1' != info->all->map->map[(int)(info->posX)][((int)(info->posY + (info->dirY * info->moveSpeed)))])
 			info->posY += info->dirY * info->moveSpeed;
-		printf("new = %f\n", info->posX);
+		//printf("new = %f\n", info->posX);
 	}
 	if (key == 115)
 	{
