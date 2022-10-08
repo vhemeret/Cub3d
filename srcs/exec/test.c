@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:55:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/10/08 02:41:52 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/08 04:03:07 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@
 void	draw(t_info *info)
 {
 	//bzero(info->img.data, 720*1080);
-	if (info->img.img)
-		mlx_destroy_image(info->mlx, info->img.img);
+	mlx_destroy_image(info->mlx, info->img.img);
 	info->img.img = mlx_new_image(info->mlx, WIDTH, HEIGHT);
 	//info->img.data = (int *)mlx_get_data_addr(info->img.img, &info->img.bpp, &info->img.size_l, &info->img.endian);
 	for (int y = 0; y < HEIGHT; y++)
@@ -64,20 +63,20 @@ int		get_num_tex(t_info *info, int mapX, int mapY)
 
 void	draw_color_texture(t_info *info, int x, int texNum, double step)
 {
-	double texPos;
+	double texPos;	
 	int tmp = -1;
-	int	y = info->drawStart - 1;
+	int	y = info->drawStart -1;
 	int	texY;
 	int color;
-
+	
 	texPos = (info->drawStart - HEIGHT / 2 + info->lineHeight / 2) * step;
 	while (++tmp < info->drawStart)
 		info->buf[tmp][x] = info->all->map->c_rgb; // a modifier all->map->c_rgb;
 	tmp = info->drawEnd - 1;
 	while (++tmp < 720)
 		info->buf[tmp][x] = info->all->map->f_rgb; //  a modifier all->map->f_rgb;
-	//printf("ic %d  //// %d\n", info->drawEnd, info->drawStart);
-	while (++y <= info->drawEnd)
+	//printf("ic %d  //// %d\n", info->drawEnd, info);
+	while (++y < info->drawEnd)
 	{
 		texY = (int)texPos & (info->texHeight - 1);
 		texPos += step;
@@ -118,27 +117,27 @@ void	init_calc(t_info *info, int *stepX, int *stepY, int *mapX, int *mapY)
 
 void	draw_utils(t_info *info, int mapX, int mapY, int stepX, int stepY)
 {
-	if (info->side == 0)
-		info->utils.perpWallDist = (mapX - info->posX + (1 - stepX) / 2) / info->utils.rayDirX;
-	else
-		info->utils.perpWallDist = (mapY - info->posY + (1 - stepY) / 2) / info->utils.rayDirY;
-	info->lineHeight = (int)(height / info->utils.perpWallDist);
-	info->drawStart = -info->lineHeight / 2 + height / 2;
-	if (info->drawStart < 0)
-		info->drawStart = 0;
-	info->drawEnd = info->lineHeight / 2 + height / 2;
-	if (info->drawEnd >= height)
-		info->drawEnd = height - 1;
-	if (info->side == 0)
-		info->utils.wallX = info->posY + info->utils.perpWallDist * info->utils.rayDirY;
-	else
-		info->utils.wallX = info->posX + info->utils.perpWallDist * info->utils.rayDirX;
-	info->utils.wallX -= floor(info->utils.wallX);
-	info->texX = (int)(info->utils.wallX * (double)info->texWidth);
-	if (info->side == 0 && info->utils.rayDirX > 0)
-		info->texX = info->texWidth - info->texX - 1;
-	if (info->side == 1 && info->utils.rayDirY < 0)
-		info->texX = info->texWidth - info->texX - 1;
+		if (info->side == 0)
+			info->utils.perpWallDist = (mapX - info->posX + (1 - stepX) / 2) / info->utils.rayDirX;
+		else
+			info->utils.perpWallDist = (mapY - info->posY + (1 - stepY) / 2) / info->utils.rayDirY;
+		info->lineHeight = (int)(height / info->utils.perpWallDist);
+		info->drawStart = -info->lineHeight / 2 + height / 2;
+		if(info->drawStart < 0)
+			info->drawStart = 0;
+		info->drawEnd = info->lineHeight / 2 + height / 2;
+		if(info->drawEnd >= height)
+			info->drawEnd = height - 1;
+		if (info->side == 0)
+			info->utils.wallX = info->posY + info->utils.perpWallDist * info->utils.rayDirY;
+		else
+			info->utils.wallX = info->posX + info->utils.perpWallDist * info->utils.rayDirX;
+		info->utils.wallX -= floor(info->utils.wallX);
+		info->texX = (int)(info->utils.wallX * (double)info->texWidth);
+		if (info->side == 0 && info->utils.rayDirX > 0)
+			info->texX = info->texWidth - info->texX - 1;
+		if (info->side == 1 && info->utils.rayDirY < 0)
+			info->texX = info->texWidth - info->texX - 1;
 }
 
 void	dda(t_info *info, int *mapX, int *mapY, int stepX, int stepY)
@@ -175,7 +174,7 @@ void	calc(t_info *info)
 	{
 		mapX = (int)info->posX;
 		mapY = (int)info->posY;
-
+		
 		info->utils.rayDirX = info->dirX + (info->planeX * ((double)(2 * x / (double)width - 1)));
 		info->utils.rayDirY = info->dirY + (info->planeY * ((double)(2 * x / (double)width - 1)));
 		init_calc(info, &stepX, &stepY, &mapX, &mapY);
@@ -189,7 +188,7 @@ int	load_image(t_info *info, int *texture, char *path, t_img *img)
 {
 	int	x;
 	int	y;
-
+	
 	y = -1;
 	img->img = mlx_xpm_file_to_image(info->mlx, path, &img->img_width, &img->img_height);
 	if (!img->img)
