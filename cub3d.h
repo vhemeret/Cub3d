@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/10 17:40:55 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/10/10 18:55:14 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_mem
 	struct s_mem	*back;
 }				t_mem;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void	*img;
 	int		*data;
@@ -87,48 +87,49 @@ typedef struct s_all
 	t_map	*map;
 	t_pos	*pos;
 	t_mem	*mem;
-} t_all;
+}	t_all;
 
-typedef	struct s_calc_utils
+typedef struct s_calc_utils
 {
-	double ray_dirx;
-	double ray_diry;
-	double side_distx;
-	double side_disty;
-	double delta_distx;
-	double delta_disty;
-	double wall_x;
-	double perp_wall_dist;
+	double	ray_dirx;
+	double	ray_diry;
+	double	side_distx;
+	double	side_disty;
+	double	delta_distx;
+	double	delta_disty;
+	double	wall_x;
+	double	perp_wall_dist;
 }	t_calc_utils;
 
-typedef struct	s_info
+typedef struct s_info
 {
-	double	pos_x;
-	double	pos_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-	void	*mlx;
-	void	*win;
-	int		buf[HEIGHT + 1][WIDTH + 1];
-	int		**texture;
-	int		tex_width;
-	int		tex_height;
-	int		line_height;
-	int		draw_start;
-	int		draw_End;
-	int 	side;
-	int		tex_x;
-	double	move_speed;
-	double	rot_speed;
-	int		re_buf;
-	int		t_width;
-	t_img	img;
-	t_all	*all;
+	int				map_x;
+	int				map_y;
+	double			pos_x;
+	double			pos_y;
+	double			dir_x;
+	double			dir_y;
+	int				tex_width;
+	int				tex_height;
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+	double			plane_x;
+	double			plane_y;
+	void			*mlx;
+	void			*win;
+	int				buf[HEIGHT + 1][WIDTH + 1];
+	int				**texture;
+	int				side;
+	int				tex_x;
+	double			move_speed;
+	double			rot_speed;
+	int				re_buf;
+	int				t_width;
+	t_img			img;
+	t_all			*all;
 	t_calc_utils	utils;
 }				t_info;
-
 
 /*##################### PARSING #####################*/
 
@@ -152,6 +153,13 @@ void	replace_space(char **square);
 int		exec(t_all *all);
 int		get_position_player(char **map, t_info *info);
 int		load_image(t_info *info, int *texture, char *path, t_img *img);
+void	draw_color_texture(t_info *info, int x, int tex_num, double step);
+void	init_calc(t_info *info, int *step_x, int *step_y);
+void	draw_utils(t_info *info, int step_x, int step_y);
+void	dda(t_info *info, int step_x, int step_y);
+void	draw(t_info *info);
+int		get_num_tex(t_info *info);
+void	calc(t_info *info);
 
 /*##################### CLEANING #####################*/
 
