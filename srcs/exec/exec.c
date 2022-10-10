@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:31:21 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/08 02:52:05 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/10 15:51:44 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int exec(t_all *all)
 	info.re_buf = 0;
 	info.texWidth = 64;
 	info.texHeight = 64;
-	info.moveSpeed = 0.1;
+	info.moveSpeed = 0.099;
 	info.rotSpeed = 0.05;
 	if (!run_mlx(&info))
 	{

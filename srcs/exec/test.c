@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:55:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/10/08 04:03:07 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/10 15:54:55 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,11 @@ void	draw_color_texture(t_info *info, int x, int texNum, double step)
 	
 	texPos = (info->drawStart - HEIGHT / 2 + info->lineHeight / 2) * step;
 	while (++tmp < info->drawStart)
-		info->buf[tmp][x] = info->all->map->c_rgb; // a modifier all->map->c_rgb;
+		info->buf[tmp][x] = info->all->map->c_rgb;
 	tmp = info->drawEnd - 1;
-	while (++tmp < 720)
-		info->buf[tmp][x] = info->all->map->f_rgb; //  a modifier all->map->f_rgb;
-	//printf("ic %d  //// %d\n", info->drawEnd, info);
-	while (++y < info->drawEnd)
+	while (++tmp < HEIGHT)
+		info->buf[tmp][x] = info->all->map->f_rgb;
+	while (++y <= info->drawEnd)
 	{
 		texY = (int)texPos & (info->texHeight - 1);
 		texPos += step;
@@ -92,7 +91,6 @@ void	init_calc(t_info *info, int *stepX, int *stepY, int *mapX, int *mapY)
 {
 	info->utils.deltaDistX = fabs(1 / info->utils.rayDirX);
 	info->utils.deltaDistY = fabs(1 / info->utils.rayDirY);
-	//printf("test = > %f \n",info->utils.rayDirX);
 	if (info->utils.rayDirX < 0)
 	{
 		*stepX = -1;

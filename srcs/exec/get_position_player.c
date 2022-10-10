@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 12:05:21 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/08 02:04:52 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/10 14:23:19 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ int	get_position_player(char **map, t_info *info)
 					info->posY = j + 0.5;
 					if (map[i][j] == 'S')//SUD
 					{
-						info->dirX = 1;
+						info->dirX = 0.99;
 						info->planeX = 0;
 						info->dirY = 0;
 						info->planeY = -0.6;
 					}
 					if (map[i][j] == 'N')//NORD
 					{
-						info->dirX = -1;
+						info->dirX = -0.99;
 						info->planeX = 0;
 						info->dirY = 0;
 						info->planeY = 0.6;
@@ -67,14 +67,14 @@ int	get_position_player(char **map, t_info *info)
 					{
 						info->dirX = 0;
 						info->planeX = -0.6;
-						info->dirY = -1;
+						info->dirY = -0.99;
 						info->planeY = 0;
 					}
 					if (map[i][j] == 'E')
 					{
 						info->dirX = 0;
 						info->planeX = 0.6;
-						info->dirY = 1;
+						info->dirY = 0.99;
 						info->planeY = 0;
 					}
 					map[i][j] = 0;

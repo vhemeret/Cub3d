@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/08 02:59:09 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/10 14:01:33 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ typedef struct	s_info
 	double planeY;
 	void	*mlx;
 	void	*win;
-	int		buf[720][1080];
+	int		buf[HEIGHT + 1][WIDTH + 1];
 	int		**texture;
 	int		texWidth;
 	int		texHeight;
