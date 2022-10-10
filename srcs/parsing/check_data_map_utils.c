@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:13:23 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/04 00:31:50 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/10/10 17:33:59 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ int	wich_data(char *data, t_face face)
 	if (data[0])
 	{
 		if (data[0] == 'N')
-			face.NO = 1;
+			face.no = 1;
 		else if (data[0] == 'S')
-			face.SO = 1;
+			face.so = 1;
 		else if (data[0] == 'W')
-			face.WE = 1;
+			face.we = 1;
 		else if (data[0] == 'E')
-			face.EA = 1;
+			face.ea = 1;
 		else if (data[0] == 'F')
-			face.F = 1;
+			face.f = 1;
 		else if (data[0] == 'C')
-			face.C = 1;
+			face.c = 1;
 		else
 			return (0);
 	}

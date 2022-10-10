@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 13:57:09 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/27 16:02:07 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/10/10 17:36:20 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static int	parsing_data_map(char **map, int *i, t_all *all)
 {
 	t_face	face;
 
-	face.NO = 0;
-	face.SO = 0;
-	face.WE = 0;
-	face.EA = 0;
-	face.F = 0;
-	face.C = 0;
+	face.no = 0;
+	face.so = 0;
+	face.we = 0;
+	face.ea = 0;
+	face.f = 0;
+	face.c = 0;
 	face.data = 0;
 	*i = 0;
 	while (map[*i] && face.data != 6)
@@ -35,8 +35,8 @@ static int	parsing_data_map(char **map, int *i, t_all *all)
 		(*i)++;
 	}
 	if (face.data != 6
-		&& (face.NO != 1 || face.SO != 1 || face.WE != 1 || face.EA != 1)
-		&& (face.F != 1 || face.C != 1))
+		&& (face.no != 1 || face.so != 1 || face.we != 1 || face.ea != 1)
+		&& (face.f != 1 || face.c != 1))
 		return (0);
 	return (1);
 }

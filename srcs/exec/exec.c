@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:31:21 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/10 15:51:44 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/10 17:25:00 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,10 @@ int exec(t_all *all)
 	info.all = all;
 	get_position_player(info.all->map->map, &info);
 	info.re_buf = 0;
-	info.texWidth = 64;
-	info.texHeight = 64;
-	info.moveSpeed = 0.099;
-	info.rotSpeed = 0.05;
+	info.tex_width = 64;
+	info.tex_height = 64;
+	info.move_speed = 0.099;
+	info.rot_speed = 0.05;
 	if (!run_mlx(&info))
 	{
 		printf("fewfew\n");

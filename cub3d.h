@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/10 14:01:33 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/10 17:40:55 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@
 
 # define X_EVENT_KEY_PRESS 2
 # define X_EVENT_KEY_EXIT 17
-# define mapWidth 24
-# define mapHeight 24
 # define WIDTH 1080
 # define HEIGHT 720
 
@@ -52,13 +50,13 @@ typedef struct	s_img
 }				t_img;
 typedef struct s_face
 {
-	int	NO;
-	int SO;
-	int	WE;
-	int	EA;
-	int	F;
-	int C;
-	int data;
+	int	no;
+	int	so;
+	int	we;
+	int	ea;
+	int	f;
+	int	c;
+	int	data;
 }	t_face;
 
 typedef struct s_map
@@ -93,37 +91,37 @@ typedef struct s_all
 
 typedef	struct s_calc_utils
 {
-	double rayDirX;
-	double rayDirY;
-	double sideDistX;
-	double sideDistY;
-	double deltaDistX;
-	double deltaDistY;
-	double wallX;
-	double perpWallDist;
+	double ray_dirx;
+	double ray_diry;
+	double side_distx;
+	double side_disty;
+	double delta_distx;
+	double delta_disty;
+	double wall_x;
+	double perp_wall_dist;
 }	t_calc_utils;
 
 typedef struct	s_info
 {
-	double posX;
-	double posY;
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 	void	*mlx;
 	void	*win;
 	int		buf[HEIGHT + 1][WIDTH + 1];
 	int		**texture;
-	int		texWidth;
-	int		texHeight;
-	int		lineHeight;
-	int		drawStart;
-	int		drawEnd;
+	int		tex_width;
+	int		tex_height;
+	int		line_height;
+	int		draw_start;
+	int		draw_End;
 	int 	side;
-	int		texX;
-	double	moveSpeed;
-	double	rotSpeed;
+	int		tex_x;
+	double	move_speed;
+	double	rot_speed;
 	int		re_buf;
 	int		t_width;
 	t_img	img;
@@ -174,4 +172,5 @@ int		main_loop(t_info *info);
 int		key_press(int key, t_info *info);
 void	key_press_suite(int key, t_info *info);
 void	key_press_end(int key, t_info *info);
+
 #endif

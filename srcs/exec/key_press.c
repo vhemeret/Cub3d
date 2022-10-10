@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 19:11:42 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/10/10 15:53:33 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/10 17:25:00 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@ int	key_press(int key, t_info *info)
 {
 	if (key == 119)
 	{
-		if ((info->posX + info->dirX * info->moveSpeed) > 0 && '1' != info->all->map->map[((int)(info->posX + (info->dirX * info->moveSpeed)))][(int)(info->posY)])
-			info->posX += info->dirX * info->moveSpeed;
-		if ((info->posY + info->dirY * info->moveSpeed) > 0 && '1' != info->all->map->map[(int)(info->posX)][((int)(info->posY + (info->dirY * info->moveSpeed)))])
-			info->posY += info->dirY * info->moveSpeed;
+		if ((info->pos_x + info->dir_x * info->move_speed) > 0 && '1' != info->all->map->map[((int)(info->pos_x + (info->dir_x * info->move_speed)))][(int)(info->pos_y)])
+			info->pos_x += info->dir_x * info->move_speed;
+		if ((info->pos_y + info->dir_y * info->move_speed) > 0 && '1' != info->all->map->map[(int)(info->pos_x)][((int)(info->pos_y + (info->dir_y * info->move_speed)))])
+			info->pos_y += info->dir_y * info->move_speed;
 	}
 	if (key == 115)
 	{
-		if ((info->posX - info->dirX * info->moveSpeed) > 0 && '1' != info->all->map->map[(int)(info->posX - info->dirX * info->moveSpeed)][(int)(info->posY)])
-			info->posX -= info->dirX * info->moveSpeed;
-		if ((info->posY -  info->dirY * info->moveSpeed) > 0 && '1' != info->all->map->map[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
-			info->posY -= info->dirY * info->moveSpeed;
+		if ((info->pos_x - info->dir_x * info->move_speed) > 0 && '1' != info->all->map->map[(int)(info->pos_x - info->dir_x * info->move_speed)][(int)(info->pos_y)])
+			info->pos_x -= info->dir_x * info->move_speed;
+		if ((info->pos_y -  info->dir_y * info->move_speed) > 0 && '1' != info->all->map->map[(int)(info->pos_x)][(int)(info->pos_y - info->dir_y * info->move_speed)])
+			info->pos_y -= info->dir_y * info->move_speed;
 	}
 	if (key == 97)
 	{
-		if ((info->posX - info->dirY * info->moveSpeed) > 0 && '1' != info->all->map->map[(int)(info->posX - info->dirY * info->moveSpeed)][(int)(info->posY)])
-			info->posX -= info->dirY * info->moveSpeed;
-		if ((info->posY + info->dirX * info->moveSpeed) > 0 && '1' != info->all->map->map[(int)(info->posX)][(int)(info->posY + info->dirX * info->moveSpeed)])
-			info->posY += info->dirX * info->moveSpeed;
+		if ((info->pos_x - info->dir_y * info->move_speed) > 0 && '1' != info->all->map->map[(int)(info->pos_x - info->dir_y * info->move_speed)][(int)(info->pos_y)])
+			info->pos_x -= info->dir_y * info->move_speed;
+		if ((info->pos_y + info->dir_x * info->move_speed) > 0 && '1' != info->all->map->map[(int)(info->pos_x)][(int)(info->pos_y + info->dir_x * info->move_speed)])
+			info->pos_y += info->dir_x * info->move_speed;
 	}
 	if (key == 65307)
 		mlx_loop_end(info->mlx);
@@ -48,19 +48,19 @@ void	key_press_suite(int key, t_info *info)
 	
 	if (key == 100)
 	{
-		if ((info->posX + info->dirY * info->moveSpeed) > 0 && '1' != info->all->map->map[(int)(info->posX + info->dirY * info->moveSpeed)][(int)(info->posY)])
-			info->posX += info->dirY * info->moveSpeed;
-		if ((info->posY - info->dirX * info->moveSpeed) > 0 && '1' != info->all->map->map[(int)(info->posX)][(int)(info->posY - info->dirX * info->moveSpeed)])
-			info->posY -= info->dirX * info->moveSpeed;
+		if ((info->pos_x + info->dir_y * info->move_speed) > 0 && '1' != info->all->map->map[(int)(info->pos_x + info->dir_y * info->move_speed)][(int)(info->pos_y)])
+			info->pos_x += info->dir_y * info->move_speed;
+		if ((info->pos_y - info->dir_x * info->move_speed) > 0 && '1' != info->all->map->map[(int)(info->pos_x)][(int)(info->pos_y - info->dir_x * info->move_speed)])
+			info->pos_y -= info->dir_x * info->move_speed;
 	}
 	if (key == 65363)//100
 	{
-		oldDirX = info->dirX;
-		info->dirX = info->dirX * cos(-info->rotSpeed) - info->dirY * sin(-info->rotSpeed);
-		info->dirY = oldDirX * sin(-info->rotSpeed) + info->dirY * cos(-info->rotSpeed);
-		oldPlaneX = info->planeX;
-		info->planeX = info->planeX * cos(-info->rotSpeed) - info->planeY * sin(-info->rotSpeed);
-		info->planeY = oldPlaneX * sin(-info->rotSpeed) + info->planeY * cos(-info->rotSpeed);
+		oldDirX = info->dir_x;
+		info->dir_x = info->dir_x * cos(-info->rot_speed) - info->dir_y * sin(-info->rot_speed);
+		info->dir_y = oldDirX * sin(-info->rot_speed) + info->dir_y * cos(-info->rot_speed);
+		oldPlaneX = info->plane_x;
+		info->plane_x = info->plane_x * cos(-info->rot_speed) - info->plane_y * sin(-info->rot_speed);
+		info->plane_y = oldPlaneX * sin(-info->rot_speed) + info->plane_y * cos(-info->rot_speed);
 	}
 	key_press_end(key, info);
 }
@@ -72,11 +72,11 @@ void	key_press_end(int key, t_info *info)
 	
 	if (key == 65361)//97
 	{
-		oldDirX = info->dirX;
-		info->dirX = info->dirX * cos(info->rotSpeed) - info->dirY * sin(info->rotSpeed);
-		info->dirY = oldDirX * sin(info->rotSpeed) + info->dirY * cos(info->rotSpeed);
-		oldPlaneX = info->planeX;
-		info->planeX = info->planeX * cos(info->rotSpeed) - info->planeY * sin(info->rotSpeed);
-		info->planeY = oldPlaneX * sin(info->rotSpeed) + info->planeY * cos(info->rotSpeed);
+		oldDirX = info->dir_x;
+		info->dir_x = info->dir_x * cos(info->rot_speed) - info->dir_y * sin(info->rot_speed);
+		info->dir_y = oldDirX * sin(info->rot_speed) + info->dir_y * cos(info->rot_speed);
+		oldPlaneX = info->plane_x;
+		info->plane_x = info->plane_x * cos(info->rot_speed) - info->plane_y * sin(info->rot_speed);
+		info->plane_y = oldPlaneX * sin(info->rot_speed) + info->plane_y * cos(info->rot_speed);
 	}
 }
