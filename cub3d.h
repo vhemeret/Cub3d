@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/10 18:55:14 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:03:20 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define X_EVENT_KEY_EXIT 17
 # define WIDTH 1080
 # define HEIGHT 720
+
+/*###################### STRUCT #######################*/
 
 typedef struct s_mem
 {
@@ -163,7 +165,7 @@ void	calc(t_info *info);
 
 /*##################### CLEANING #####################*/
 
-void	free_double_arr(char **arr);
+int		info_free(t_info *info);
 void	*ft_malloc(size_t size, t_mem **mem);
 void	ft_free(void *addr, t_mem **mem);
 void	free_all(t_mem **mem);

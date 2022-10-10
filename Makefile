@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+         #
+#    By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 04:35:45 by vahemere          #+#    #+#              #
-#    Updated: 2022/10/10 18:53:25 by brhajji-         ###   ########.fr        #
+#    Updated: 2022/10/10 20:03:34 by vahemere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS = main.c \
 check_fd.c get_map.c parsing.c check_map.c check_data_map.c check_data_map_utils.c check_body_map.c check_body_map_utils.c \
 get_next_line_utils.c get_next_line.c \
 get_position_player.c \
-mem.c \
+mem.c info_free.c \
 ft_split.c remove_wspace.c ft_atoi.c ft_strncmp.c line.c \
 exec.c test.c key_press.c calc.c\
 
