@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:12:53 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/11 19:12:17 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:27:56 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ int	check_value_rgb(char *line, t_all *all)
 	{
 		if (!check_value(rgb, all))
 			return (0);
+		while (rgb[i])
+			i++;
+		if (i > 3 || i < 3)
+			return (0);
 		put_rgb_data(c, rgb, all->map, all);
 	}
 	i = 0;
-	while (rgb[i])
-		i++;
-	if (i > 3)
-		return (0);
 	return (1);
 }
 

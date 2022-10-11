@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:13:23 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/11 19:23:31 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:30:41 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	check_path_texture(char *line, t_all *all)
 		fd = open(path, O_RDONLY);
 		if (fd == -1 && close(fd))
 			return (0);
-		fd = open(path, O_DIRECTORY);
+		fd = open(path, __O_DIRECTORY);
 		path = NULL;
 		if (fd == -1 && close(fd))
 			return (1);

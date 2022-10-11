@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 18:50:19 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/11 19:16:35 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:26:09 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char	*rm_all_wspace(char *str, t_all *all)
 	char	*ret;
 
 	i = 0;
+	if (!str)
+		return (NULL);
 	while (str[i] && str[i] != '\n'
 		&& ((str[i] >= 9 && str[i] <= 13) || str[i] == ' '))
 		i++;
