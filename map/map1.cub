@@ -1,7 +1,7 @@
-NO ./map/test_texture/path_to_the_north_texture.xpm
-SO ./map/test_texture/path_to_the_south_texture.xpm
-WE ./map/test_texture/path_to_the_west_texture.xpm
-EA ./map/test_texture/path_to_the_east_texture.xpm
+NO ./map/textures/stone1.xpm
+SO ./map/textures/stone2.xpm
+WE ./map/textures/stone3.xpm
+EA ./map/textures/stone4.xpm
 
 C 84,171,179
 F 240,211,117
