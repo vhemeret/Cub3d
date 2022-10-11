@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/11 12:59:43 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:53:27 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,8 @@ int		check_map(char **map, t_all *all);
 int		check_data(char **map, t_face face, t_all *all);
 int		wich_data(char *data, t_face face);
 int		check_path_texture(char *line, t_all *all);
-int		check_value(char **rgb);
-void	put_rgb_data(char **arr, char **rgb, t_map *data);
+int		check_value(char **rgb, t_all *all);
+void	put_rgb_data(char c, char **rgb, t_map *data, t_all *all);
 void	put_path_data(char **arr, t_all *all);
 int		check_body_map(t_all *all);
 char	**create_square(t_all *all, int last_line);
@@ -183,5 +183,6 @@ int		ft_atoi(const char *nptr);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		first_line(char **map, t_all *all);
 void	last_line(char **map, t_all *all);
+char	*rm_all_wspace(char *str, t_all *all);
 
 #endif

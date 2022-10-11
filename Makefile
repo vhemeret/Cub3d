@@ -6,7 +6,7 @@
 #    By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 04:35:45 by vahemere          #+#    #+#              #
-#    Updated: 2022/10/11 13:07:09 by vahemere         ###   ########.fr        #
+#    Updated: 2022/10/11 18:53:41 by vahemere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ check_fd.c get_map.c parsing.c check_map.c check_data_map.c check_data_map_utils
 get_next_line_utils.c get_next_line.c \
 get_position_player.c \
 mem.c info_free.c \
-ft_split.c remove_wspace.c ft_atoi.c ft_strncmp.c line.c \
+ft_split.c remove_wspace.c rm_all_wspace.c ft_atoi.c ft_strncmp.c line.c \
 exec.c display.c key_press.c calc.c\
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:%.c=%.o))
@@ -33,7 +33,7 @@ LIB_NAME = $(LIB_DIR)/libmlx_Linux.a
 ########################### COMPILATION AND FLAGS ###########################
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra #-g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 LIB_FLAGS = -lXext -lX11 -lm
 
 ##################################### COLOR ##################################

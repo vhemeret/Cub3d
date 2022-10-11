@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:12:53 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/10 17:37:07 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:12:17 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,30 @@ int	check_virgule(char *rgb)
 
 int	check_value_rgb(char *line, t_all *all)
 {
-	char	**arr;
 	char	**rgb;
+	char	c;
+	int		i;
 
+	i = 1;
 	rgb = NULL;
-	arr = ft_split(line, ' ', all);
-	if (arr[1])
+	c = line[0];
+	if (line[1])
+		while (line[i] && line[i] == ' ')
+			i++;
+	if (line[i] && line[i] == '\n')
+		return (0);
+	rgb = ft_split(&line[i], ',', all);
+	if (rgb[0])
 	{
-		if (!check_virgule(arr[1]))
+		if (!check_value(rgb, all))
 			return (0);
-		rgb = ft_split(arr[1], ',', all);
+		put_rgb_data(c, rgb, all->map, all);
 	}
-	if (rgb)
-	{
-		if (!check_value(rgb))
-			return (0);
-		put_rgb_data(arr, rgb, all->map);
-	}
+	i = 0;
+	while (rgb[i])
+		i++;
+	if (i > 3)
+		return (0);
 	return (1);
 }
 
@@ -94,7 +101,7 @@ int	check_texture(char *map, t_face face, t_all *all)
 				if (!check_path_texture(arr[1], all))
 					return (0);
 				put_path_data(arr, all);
-			}	
+			}
 		}
 	}
 	else

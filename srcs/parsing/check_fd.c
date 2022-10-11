@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 19:23:08 by vahemere          #+#    #+#             */
-/*   Updated: 2022/09/13 21:24:03 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:01:33 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ int	check_fd(char *path)
 		printf("Error\nWrong file name.\n");
 		return (0);
 	}
-	else if (!check_is_directory(path))
-	{
-		printf("Error\nFile is a directory.\n");
-		return (0);
-	}
 	else if (!check_is_file(path))
 	{
 		printf("Error\nFile does not exist.\n");
+		return (0);
+	}
+	else if (!check_is_directory(path))
+	{
+		printf("Error\nFile is a directory.\n");
 		return (0);
 	}
 	return (1);

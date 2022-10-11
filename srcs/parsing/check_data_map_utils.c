@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:13:23 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/10 17:33:59 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:10:32 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,16 @@ void	put_path_data(char **arr, t_all *all)
 		all->map->path_texture_ea = remove_wspace(arr[1], all);
 }
 
-void	put_rgb_data(char **arr, char **rgb, t_map *data)
+void	put_rgb_data(char c, char **rgb, t_map *data, t_all *all)
 {
-	if (arr[0][0] == 'F')
-		data->f_rgb = 65536 * atoi(rgb[0]) + 256 * atoi(rgb[1]) + atoi(rgb[2]);
-	else if (arr[0][0] == 'C')
-		data->c_rgb = 65536 * atoi(rgb[0]) + 256 * atoi(rgb[1]) + atoi(rgb[2]);
+	if (c == 'F')
+		data->f_rgb = 65536 * atoi(rm_all_wspace(rgb[0], all))
+			+ 256 * atoi(rm_all_wspace(rgb[1], all))
+			+ atoi(rm_all_wspace(rgb[2], all));
+	else if (c == 'C')
+		data->c_rgb = 65536 * atoi(rm_all_wspace(rgb[0], all))
+			+ 256 * atoi(remove_wspace(rgb[1], all))
+			+ atoi(rm_all_wspace(rgb[2], all));
 }
 
 int	wich_data(char *data, t_face face)
@@ -88,28 +92,30 @@ int	check_path_texture(char *line, t_all *all)
 	return (1);
 }
 
-int	check_value(char **rgb)
+int	check_value(char **rgb, t_all *all)
 {
-	int	i;
-	int	j;
-	int	nb;
+	int		i;
+	int		j;
+	int		nb;
+	char	*rgb_clean;
 
 	i = -1;
 	while (rgb[++i])
 	{
+		rgb_clean = rm_all_wspace(rgb[i], all);
 		j = -1;
-		while (rgb[i][++j] && rgb[i][j] != '\n')
-			if (rgb[i][j] < '0' || rgb[i][j] > '9')
+		if (!rgb_clean[0])
+			return (0);
+		while (rgb_clean[++j] && rgb_clean[j] != '\n')
+			if (rgb_clean[j] < '0' || rgb_clean[j] > '9')
 				return (0);
 	}
 	i = -1;
 	while (rgb[++i])
 	{
-		nb = ft_atoi(rgb[i]);
+		nb = ft_atoi(rm_all_wspace(rgb[i], all));
 		if (nb < 0 || nb > 255)
 			return (0);
 	}
-	if (i > 3)
-		return (0);
 	return (1);
 }
