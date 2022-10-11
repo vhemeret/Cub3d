@@ -6,7 +6,7 @@
 /*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 04:30:31 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/10 20:21:46 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/10/11 12:59:43 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,11 @@ void	dda(t_info *info, int step_x, int step_y);
 void	draw(t_info *info);
 int		get_num_tex(t_info *info);
 void	calc(t_info *info);
+int		main_loop(t_info *info);
+int		key_press(int key, t_info *info);
+int		key_press_suite(int key, t_info *info);
+int		key_press_move_camera_right(int key, t_info *info);
+int		key_press_move_camera_left(int key, t_info *info);
 
 /*##################### CLEANING #####################*/
 
@@ -178,9 +183,5 @@ int		ft_atoi(const char *nptr);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		first_line(char **map, t_all *all);
 void	last_line(char **map, t_all *all);
-int		main_loop(t_info *info);
-int		key_press(int key, t_info *info);
-int		key_press_suite(int key, t_info *info);
-int		key_press_end(int key, t_info *info);
 
 #endif

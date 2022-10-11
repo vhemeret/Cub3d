@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:29:50 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/10/10 20:12:15 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/11 13:01:49 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ void	draw_color_texture(t_info *info, int x, int tex_num, double step)
 void	draw_utils(t_info *info, int step_x, int step_y)
 {
 	if (info->side == 0)
-		info->utils.perp_wall_dist = (info->map_x - info->pos_x + (1 - step_x) / 2)
-			/ info->utils.ray_dirx;
+		info->utils.perp_wall_dist = (info->map_x - info->pos_x
+				+ (1 - step_x) / 2) / info->utils.ray_dirx;
 	else
-		info->utils.perp_wall_dist = (info->map_y - info->pos_y + (1 - step_y) / 2)
-			/ info->utils.ray_diry;
+		info->utils.perp_wall_dist = (info->map_y - info->pos_y
+				+ (1 - step_y) / 2) / info->utils.ray_diry;
 	info->line_height = (int)(HEIGHT / info->utils.perp_wall_dist);
 	info->draw_start = -info->line_height / 2 + HEIGHT / 2;
 	if (info->draw_start < 0)

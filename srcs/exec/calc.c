@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   calc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 18:31:10 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/10/10 18:54:20 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/11 13:04:32 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../../cub3d.h"
+
+void	init_calc2(t_info *info, int *step_y)
+{
+	if (info->utils.ray_diry < 0)
+	{
+		*step_y = -1;
+		info->utils.side_disty = (info->pos_y - info->map_y)
+			* info->utils.delta_disty;
+	}
+	else
+	{
+		*step_y = 1;
+		info->utils.side_disty = (info->map_y + 1.0 - info->pos_y)
+			* info->utils.delta_disty;
+	}
+}
 
 void	init_calc(t_info *info, int *step_x, int *step_y)
 {
@@ -28,18 +44,7 @@ void	init_calc(t_info *info, int *step_x, int *step_y)
 		info->utils.side_distx = (info->map_x + 1.0 - info->pos_x)
 			* info->utils.delta_distx;
 	}
-	if (info->utils.ray_diry < 0)
-	{
-		*step_y = -1;
-		info->utils.side_disty = (info->pos_y - info->map_y)
-			* info->utils.delta_disty;
-	}
-	else
-	{
-		*step_y = 1;
-		info->utils.side_disty = (info->map_y + 1.0 - info->pos_y)
-			* info->utils.delta_disty;
-	}
+	return (init_calc2(info, step_y));
 }
 
 void	dda(t_info *info, int step_x, int step_y)

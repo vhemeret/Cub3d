@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 19:11:42 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/10/10 20:17:37 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/10/11 13:00:16 by vahemere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ int	key_press_suite(int key, t_info *info)
 				+ info->dir_x * info->move_speed)])
 			info->pos_y += info->dir_x * info->move_speed;
 	}
-	return (key_press_end(key, info));
+	return (key_press_move_camera_right(key, info));
 }
 
-int	key_press_end(int key, t_info *info)
+int	key_press_move_camera_right(int key, t_info *info)
 {
 	double	tmp;
 
@@ -85,6 +85,13 @@ int	key_press_end(int key, t_info *info)
 		info->plane_y = tmp * sin(-info->rot_speed) + info->plane_y
 			* cos(-info->rot_speed);
 	}
+	return (key_press_move_camera_left(key, info));
+}
+
+int	key_press_move_camera_left(int key, t_info *info)
+{
+	double	tmp;
+
 	if (key == 65361)
 	{
 		tmp = info->dir_x;
