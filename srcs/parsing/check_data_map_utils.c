@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_data_map_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahemere <vahemere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:13:23 by vahemere          #+#    #+#             */
-/*   Updated: 2022/10/10 17:33:59 by vahemere         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:27:50 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,15 @@ int	check_path_texture(char *line, t_all *all)
 			return (0);
 		if (path[i - 2] != 'x' && path[i - 3] != 'X' && path[i - 3] != '.')
 			return (0);
+		fd = open(path, O_RDONLY);
+		if (fd == -1 && close(fd))
+			return (0);
+		fd = open(path, O_DIRECTORY);
+		path = NULL;
+		if (fd == -1 && close(fd))
+			return (1);
 	}
-	else
-		return (0);
-	fd = open(path, O_RDONLY);
-	path = NULL;
-	if (fd == -1)
-		return (0);
-	close(fd);
-	return (1);
+	return (0);
 }
 
 int	check_value(char **rgb)
