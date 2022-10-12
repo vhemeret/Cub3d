@@ -1,0 +1,27 @@
+NO ./map/textures/stone1.xpm
+SO ./map/textures/stone2.xpm
+WE ./map/textures/stone3.xpm
+EA ./map/textures/stone4.xpm
+
+F 120,30,0
+C 255,0,255
+
+111111
+110001
+1E0011
+110001
+111111
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
